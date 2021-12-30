@@ -15,6 +15,7 @@ import * as THREE from "three";
 import Box from "./box";
 import Tshirt from "./tshirt";
 import Tshirtnew from "./newTshirt";
+import Shirt from "./shirttest";
 
 
 
@@ -51,9 +52,10 @@ function Canva(props) {
             {props.model&& <Hoodie  position={[0, 0, 0]} mesh={setMesh} disp={display} color={props.color}/>}
             {/* <Sweat mesh={setMesh} scale={10} position={[0, -5, 0]}/> */}
             {/* {!props.model&& <Tshirt position={[0, -5, 0]} color={props.color}  mesh={setMesh} disp={display}/>} */}
-            {!props.model&& <Tshirtnew mesh={setMesh}/>}
+            {!props.model&& <Shirt mesh={setMesh} color={props.color}/>}
             {/* {props.model?<Hoodie  position={[0, 0, 0]} mesh={setMesh} disp={display} color={props.color}/>:<Tshirt position={[0, -5, 0]} color={props.color}  mesh={setMesh} disp={display}/>} */}
             {display && <Decal mesh={mesh} disp={display}/>}
+            
           </Suspense>
 
         </Canvas>
