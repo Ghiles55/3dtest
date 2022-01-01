@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 function Shirt(props) {
     const gltf = useLoader(GLTFLoader, './shirt/untitled.gltf')
     console.log(gltf.scene.children[0].children[0].children[0].children[0])
-    // props.disp ?props.mesh(gltf.scene.children[0].children[0].children[2]):""
+    // props.disp ?props.mesh(gltf.scene.children[0].children[0].children[0].children[0]):""
     gltf.scene.children[0].children[0].children[0].children[0].material.color.set(props.color)
     useEffect(() => {
       props.mesh(gltf.scene.children[0].children[0].children[0].children[0])

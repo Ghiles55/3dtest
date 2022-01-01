@@ -3,6 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import {Suspense} from 'react'
 import {useEffect} from 'react'
 import * as THREE from "three";
+import { useThree } from '@react-three/fiber'
 
 function Hoodie(props) {
     const gltf = useLoader(GLTFLoader, './scene.gltf')
