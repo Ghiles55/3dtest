@@ -1,4 +1,4 @@
-function Color(props) {
+function ColorPanel(props) {
     
     return (
       <div>
@@ -7,4 +7,4 @@ function Color(props) {
     );
   }
 
-export default Color
+export default ColorPanel

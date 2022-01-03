@@ -10,12 +10,13 @@ import store from '../store/index'
 
 export default function Home() {
   let [color,setColor]= useState("yellow")
-  let [model,setModel]= useState(false)
+  
   return (
     <Provider store={store}>
     <div className={styles.container}>
+      
       <Color setColor={setColor}/>
-      <Canva color={color} setModel={setModel} model={model} />
+      <Canva color={color}  />
     </div>
     </Provider>
   )

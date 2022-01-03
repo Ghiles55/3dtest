@@ -1,10 +1,11 @@
-import { Canvas, useLoader } from "@react-three/fiber";
+// import { Canvas, useLoader } from "@react-three/fiber";
+import Customizer from "../components/ControlPanel"
 
 export default function Test(){
-    const scene= useLoader
-    return(
-        <Canvas>
 
-        </Canvas>
+    return(
+        <>
+       <Customizer/>
+        </>
     )
 }

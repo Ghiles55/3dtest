@@ -8,14 +8,19 @@ import { useThree } from '@react-three/fiber'
 function Newhoodie(props) {
     const gltf = useLoader(GLTFLoader, './newhoodie/newhoodie.gltf')
     console.log('hoodies test',gltf.scene.children[2].children[0].children[3])
-    gltf.scene.children[2].children[0].children[3].material.color.set(props.color)
-    props.disp ?props.mesh(gltf.scene.children[2].children[0].children[3]):""
-    const {scene}= useThree()
-    props.scene(scene)
-    console.log(scene)
+    // gltf.scene.children[2].children[0].children[3].material.color.set(props.color)
+    useEffect(() => {
+      gltf.scene.children[2].children[0].children[3].material.color.set(props.color)
+      
+    }, [props.color])
+    useEffect(() => {
+      props.mesh(gltf.scene.children[2].children[0].children[3])
+      
+    }, [props.model])
+    
     return (
       <Suspense fallback={null}>
-        <primitive object={gltf.scene} scale={10} position={[0,-5,0]} />
+        <primitive  object={gltf.scene} scale={10} position={[0,-5,0]} />
       </Suspense>
     )
   }

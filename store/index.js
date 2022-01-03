@@ -10,7 +10,7 @@ const frontDecalState=createSlice({
     initialState,
     reducers:{
         changeImage(state,action){
-            state.image=action
+            state.image=action.payload
         }
     }
 })

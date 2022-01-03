@@ -11,7 +11,7 @@ function Shirt(props) {
     useEffect(() => {
       props.mesh(gltf.scene.children[0].children[0].children[0].children[0])
       
-    }, [props.mesh])
+    }, [props.model])
     
     return (
       <Suspense fallback={null}>
