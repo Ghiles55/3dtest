@@ -1,22 +1,18 @@
-import { createStore } from 'redux'
-import { createSlice,configureStore} from '@reduxjs/toolkit'
+import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
+import frontDecalState from "./frontPrintReducer";
+import modelReducer from "./modelReducer";
+import backDecalState from "./backPrintreducer";
 
-const initialState={
-    image:"sharingan.png"
-}
+const store = configureStore({
+  reducer: {
+    fontImageReducer: frontDecalState.reducer,
+    modelReducer: modelReducer.reducer,
+    backImageReducer: backDecalState.reducer
+  },
+});
 
-const frontDecalState=createSlice({
-    name:'frontDecalState',
-    initialState,
-    reducers:{
-        changeImage(state,action){
-            state.image=action.payload
-        }
-    }
-})
- const store = configureStore({
-     reducer:{fontImageReducer: frontDecalState.reducer}
- })
-
-export const frontDecalActions= frontDecalState.actions
-export default store
+export const frontDecalActions = frontDecalState.actions;
+export const modelActions = modelReducer.actions;
+export const backDecalActions= backDecalState.actions
+export default store;

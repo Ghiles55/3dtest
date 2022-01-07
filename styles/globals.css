@@ -33,6 +33,7 @@ svg{
 .customizer{
   width:38rem ;
   min-height: 35rem;
+  height: fit-content;
   background-color: azure;
   border-radius: 0.5rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -87,17 +88,98 @@ border-right: rgb(206, 205, 205) 1px solid;
 .color_picker span{
   font-weight: bold;
 }
-.f_print{
+.f_print,.b_print{
   padding:1rem;
   display: flex;
   width: 100%;
+  flex-direction:column;
 }
-.f_print label{
+.f_print label,span,.b_print label ,span{
   font-weight: bold;
   cursor:pointer;
-  width: 100%;
+  
 }
-.f_print svg{
+.f_print svg,.b_print svg{
   margin: 0;
   font-size: 22px;
+}
+.PrintSizeEditor{
+  width: 40%;
+  margin: 0;
+}
+.printEditorContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.PrintPositionEditor{
+  height: 100%;
+  width: 40%;
+  position: relative;
+}
+/* .PrintPositionEditor :nth-child(3){
+  margin-left: 2rem;
+}
+.PrintPositionEditor :nth-child(5){
+  margin-left: 1rem;
+}
+.PrintPositionEditor :nth-child(4){
+  margin-left: 10rem
+} */
+#up_arrow{
+  transform: translateX(38px);
+}
+#left_arrow{
+  transform: translateX(16px);
+}
+#right_arrow{
+  transform: translateX(38px);
+}
+#down_arrow{
+  transform: translateX(38px);
+}
+.texture_selector label{
+font-weight: bold;
+
+}
+.texture_selector {
+font-weight: bold;
+padding: 1rem;
+height: 2rem;
+display: flex;
+align-items: center;
+}
+.customizer_actions{
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  flex-direction: column;
+}
+.customizer_actions button{
+  height: 2rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: .25rem;
+  /* border: 1px solid rgb(153, 153, 153); */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.customizer_actions svg{
+  margin-right: 5px;
+}
+
+.customizer_actions :nth-child(1){
+  background-color: #ff4444;
+  font-weight: bold;
+}
+.customizer_actions :nth-child(2){
+  background-color: #6db93a;
+  font-weight: bold;
+}
+.customizer_actions :nth-child(2) svg{
+  background-color: #6db93a;
+  font-weight: bold;
+  vertical-align: bottom
 }
