@@ -1,20 +1,13 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls } from "@react-three/drei";
-
 import { Suspense, useState, useReducer } from "react";
-
-import ColorPanel from "./Color";
 import Decal from "./Decal";
-import * as THREE from "three";
-import Shirt from "./shirttest";
-import Newhoodie from "./newHoodie";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Provider } from "react-redux";
 import store from "../store/index";
 import { frontDecalActions } from "../store/index";
-import { FaTshirt } from "react-icons/fa";
-import { BsFillFileEarmarkArrowUpFill } from "react-icons/bs";
+import { backDecalActions } from "../store/index";
 import Model from "./Model";
 
 function Canva(props) {
@@ -26,10 +19,11 @@ function Canva(props) {
   let [model, setModel] = useState(false);
   let [test, setTest] = useState(false);
   let frontDecalState = useSelector((state) => state.fontImageReducer);
-  let modelState= useSelector((state)=> state.modelReducer)
-  // let backDecalState=
+  let modelState = useSelector((state) => state.modelReducer);
+  let backDecalState = useSelector((state) => state.backImageReducer);
   let dispatch = useDispatch();
-  console.log(frontDecalState);
+
+  console.log(frontDecalState, backDecalState);
 
   return (
     <>
@@ -37,16 +31,31 @@ function Canva(props) {
         <Canvas camera={{ fov: 60 }}>
           <Provider store={store}>
             <OrbitControls
-              enablePan={true}
-              enableZoom={true}
+              enablePan={false}
+              enableZoom={false}
               enableRotate={true}
             />
 
-            <ambientLight intensity={0.8} />
+            <ambientLight intensity={0.1} />
             <directionalLight
               color="white"
-              position={[0, 0, 5]}
-              intensity={0.7}
+              position={[0, -2, 5]}
+              intensity={0.2}
+            />
+            <directionalLight
+              color="white"
+              position={[0, 2, -5]}
+              intensity={0.2}
+            />
+            <directionalLight
+              color="white"
+              position={[0, -2, 0]}
+              intensity={0.2}
+            />
+            <directionalLight
+              color="white"
+              position={[0, 2, 0]}
+              intensity={0.2}
             />
             <color attach={"background"} args={["#03544e"]} />
 
@@ -66,6 +75,7 @@ function Canva(props) {
                 mesh={setMesh}
                 color={modelState.color}
                 model={modelState.model}
+                texture={modelState.texture}
                 test={test}
               />
               {frontDecalState.isDecal && (
@@ -77,6 +87,17 @@ function Canva(props) {
                   pos={0.4}
                   state={frontDecalState}
                   actions={frontDecalActions}
+                />
+              )}
+              {backDecalState.isDecal && (
+                <Decal
+                  mesh={mesh}
+                  disp={display}
+                  img={files}
+                  model={model}
+                  pos={-1}
+                  state={backDecalState}
+                  actions={backDecalActions}
                 />
               )}
               {/* {display && <Decal mesh={mesh} disp={display} img={files} model={model} pos={-1} />} */}
@@ -113,7 +134,6 @@ function Canva(props) {
           if (filePath) setFiles(filePath);
         }}
       />
-      <BsFillFileEarmarkArrowUpFill />
     </>
   );
 }

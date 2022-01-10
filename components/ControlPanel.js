@@ -9,11 +9,13 @@ import { BsCartPlusFill } from "react-icons/bs";
 import { GrPowerReset } from "react-icons/gr";
 import { frontDecalActions } from "../store/index";
 import { modelActions } from "../store/index";
+import { backDecalActions } from "../store/index";
 import { useSelector, useDispatch } from "react-redux";
 
 let Customizer = () => {
   let frontPrintState = useSelector((state) => state.fontImageReducer);
   let modelState= useSelector((state)=>state.modelReducer)
+  let backPrintState= useSelector((state)=>state.backImageReducer)
   console.log(frontPrintState, frontDecalActions);
   let dispatch = useDispatch();
 
@@ -81,32 +83,52 @@ let Customizer = () => {
         <div className="b_print">
           <input
             type="file"
-            id="fileElem"
+            id="b_print_select"
             accept=".png,.jpg,.jpeg"
             style={{ display: "none" }}
-            onChange=""
+            onChange={(e) => {
+              let file = e.target.files[0];
+              console.log(file);
+              let filePath = URL.createObjectURL(file);
+              if (filePath) {
+                dispatch(backDecalActions.changeImage(filePath))
+              }
+            }}
           />
-          <label htmlFor="fileElem">
+          <label htmlFor="b_print_select">
             Select a back print <BsFillFileEarmarkArrowUpFill />
           </label>
-          <PrintEditor />
+          <PrintEditor actions={backDecalActions}
+            sizeX={backPrintState.size_x}
+            sizeY={backPrintState.size_y} />
         </div>
         <Divider flexItem />
         <div className="texture_selector">
           <input
             type="file"
-            id="fileElem"
+            id="texutre_select"
             accept=".png,.jpg,.jpeg"
             style={{ display: "none" }}
-            onChange=""
+            onChange={e=>{
+              let file = e.target.files[0];
+              console.log(file);
+              let filePath = URL.createObjectURL(file);
+              if (filePath) {
+                dispatch(modelActions.setTexture(filePath))
+              }
+            }}
           />
-          <label htmlFor="fileElem">
+          <label htmlFor="texutre_select">
             Select a texture print <BsFillFileEarmarkArrowUpFill />
           </label>
         </div>
         <Divider flexItem />
         <div className="customizer_actions">
-          <button>
+          <button onClick={e=>{
+            dispatch(frontDecalActions.resetValues())
+            dispatch(modelActions.resetValues())
+            dispatch(backDecalActions.resetValues())
+          }}>
             {" "}
             <GrPowerReset /> Reset
           </button>

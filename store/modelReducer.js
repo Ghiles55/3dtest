@@ -4,6 +4,7 @@ const modelInitialState = {
   model: false,
   size: "M",
   color: "#194d43",
+  texture:""
 };
 
 const modelReducer = createSlice({
@@ -19,6 +20,13 @@ const modelReducer = createSlice({
     changeColor(state, action) {
       state.color = action.payload;
     },
+    resetValues(state){
+      state.size="M"
+      state.color="#194d43"
+    },
+    setTexture(state,action){
+      state.texture= action.payload
+    }
   },
 });
 

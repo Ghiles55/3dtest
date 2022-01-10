@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { useEffect } from "react";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { TextureLoader } from 'three/src/loaders/TextureLoader'
 
 const Model = (props) => {
     console.log(props)
@@ -25,6 +26,13 @@ const Model = (props) => {
   }
 
   mesh.material.color.set(props.color);
+  if(props.texture) {
+    const colorMap = useLoader(TextureLoader, props.texture)
+    console.log(colorMap)
+    // colorMap.wrapS=50
+    // colorMap.wrapT=50
+    mesh.material.setValues({map:colorMap})
+  }
   useEffect(() => {
       props.mesh(mesh);
     

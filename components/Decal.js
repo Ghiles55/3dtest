@@ -9,7 +9,7 @@ const Decal = ({ mesh, disp, img, pos, state, actions }) => {
   // let image = useSelector(state => state.fontImageReducer.image)
   let dispatch = useDispatch();
   const texture = useMemo(() => useLoader(TextureLoader, state.image));
-  console.log(state);
+  console.log(state,actions);
   console.log(texture.image.naturalHeight);
   // dispatch(actions.setSize({size_x:texture.image.naturalWidth/1000,size_y:texture.image.naturalHeight/1000}))
   const decalGeometry = useMemo(() => {

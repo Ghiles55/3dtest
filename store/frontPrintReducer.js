@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const frontDecalinitialState = {
-  image: "sharingan.png",
+  image: "",
   position_x: 0,
   position_y: 0.3,
   size_x: 1,
@@ -33,6 +33,14 @@ const frontDecalState = createSlice({
     changePositionY(state, action) {
       state.position_y += action.payload;
     },
+    resetValues(state){
+      state.image=''
+      state.position_x=0
+      state.position_y=0.3
+      state.size_x=1
+      state.size_y=1
+      state.isDecal=false
+    }
   },
 });
 

@@ -183,3 +183,60 @@ align-items: center;
   font-weight: bold;
   vertical-align: bottom
 }
+.header{
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  background-color: blue;
+  z-index: 5;
+}
+.logoContainer{
+  width: 25%;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+.logoContainer img{
+  width: 42px;
+}
+.headerSteps{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.headerActions{
+  width: 25%;
+  display: flex;
+  justify-content: flex-end;
+  padding:1rem
+}
+.headerActions button{
+  margin: 1rem;
+}
+.cartBtn svg{
+  font-size: 24px;
+}
+.cart{
+  width: 30%;
+  height: 100vh;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgb(230, 77, 72);
+}
+.backDrop{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 8;
+  background-color: rgba(136, 136, 136, 0.466);
+  backdrop-filter: blur(4px);
+  height: 100vh;
+  width: 100vw;
+}
