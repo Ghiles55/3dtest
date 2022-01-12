@@ -18,7 +18,7 @@ const Model = (props) => {
     mesh = gltf.scene.children[2].children[0].children[3];
     console.log(gltf)
     scale = 10;
-    position = [0, -5, 0];
+    position = [0, -5.2, 0];
   } else {
     mesh = gltf.scene.children[0].children[0].children[0].children[0];
     scale = 0.05;

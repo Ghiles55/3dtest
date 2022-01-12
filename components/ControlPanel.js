@@ -8,16 +8,44 @@ import Button from "@mui/material/Button";
 import { BsCartPlusFill } from "react-icons/bs";
 import { GrPowerReset } from "react-icons/gr";
 import { frontDecalActions } from "../store/index";
+import { cartActions } from "../store/index";
 import { modelActions } from "../store/index";
 import { backDecalActions } from "../store/index";
 import { useSelector, useDispatch } from "react-redux";
+import cartState from "../store/cartreducer";
 
 let Customizer = () => {
   let frontPrintState = useSelector((state) => state.fontImageReducer);
   let modelState= useSelector((state)=>state.modelReducer)
   let backPrintState= useSelector((state)=>state.backImageReducer)
+  let cartState = useSelector((state) => state.cartReducer);
   console.log(frontPrintState, frontDecalActions);
   let dispatch = useDispatch();
+  let addToCart=(e)=>{
+    let price
+    if(modelState.model){
+      price=19.99
+      if(frontPrintState.isDecal) price += 2
+      if(backPrintState.isDecal) price+= 2
+    }else{
+      price=15.99
+      if(frontPrintState.isDecal) price += 2
+      if(backPrintState.isDecal) price+= 2
+    }
+    let newCartItem={
+     ...modelState,
+      frontPrint:{
+        ...frontPrintState
+      },
+      backPrint:{
+        ...backPrintState
+      },
+      price:price
+    }
+    
+    dispatch(cartActions.addItem(newCartItem))
+    
+  }
 
   return (
     <div className="custom_container">
@@ -132,7 +160,7 @@ let Customizer = () => {
             {" "}
             <GrPowerReset /> Reset
           </button>
-          <button>
+          <button onClick={addToCart}>
             {" "}
             <BsCartPlusFill /> Add to cart
           </button>

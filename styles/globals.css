@@ -235,8 +235,22 @@ align-items: center;
   top: 0;
   right: 0;
   z-index: 8;
-  background-color: rgba(136, 136, 136, 0.466);
-  backdrop-filter: blur(4px);
+  /* background-color: rgba(136, 136, 136, 0.466); */
+  backdrop-filter: blur(6px);
   height: 100vh;
   width: 100vw;
+}
+.cartActions{
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  padding:2rem
+}
+.cartActions svg{
+  font-size: 24px;
+}
+.cartActions h1{
+  font-size: 2rem;
 }
