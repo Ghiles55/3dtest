@@ -70,20 +70,12 @@ svg{
 }
 .size_picker button{
   width: 25%;
-  /* border-bottom: rgb(206, 205, 205) 1px solid; */
-  /* padding-bottom: 0.25rem; */
   height: 100%;
 }
-/* .size_picker :nth-child(2){
-border-right: rgb(206, 205, 205) 1px solid;
-border-left: rgb(206, 205, 205) 1px solid;
-}
-.size_picker :nth-child(3){
-border-right: rgb(206, 205, 205) 1px solid;
-} */
+
 .color_picker{
   padding:1rem;
-  /* border-bottom: rgb(206, 205, 205) 1px solid; */
+ 
 }
 .color_picker span{
   font-weight: bold;
@@ -117,15 +109,7 @@ border-right: rgb(206, 205, 205) 1px solid;
   width: 40%;
   position: relative;
 }
-/* .PrintPositionEditor :nth-child(3){
-  margin-left: 2rem;
-}
-.PrintPositionEditor :nth-child(5){
-  margin-left: 1rem;
-}
-.PrintPositionEditor :nth-child(4){
-  margin-left: 10rem
-} */
+
 #up_arrow{
   transform: translateX(38px);
 }
@@ -298,4 +282,43 @@ width: 95%;
 background-color: darkslateblue;
 height: 4rem;
 border-radius: 0.5rem;
+}
+#register{
+  width: 90%
+}
+.input_form{
+  width: 90%;
+  height: 2.5rem;
+  border: #CBD5E0 0.5px solid;
+  border-radius: 0.375rem;
+  outline: none;
+  padding-inline-start: 1rem;
+ 
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  margin-bottom: 1rem;
+}
+.input_form:focus{
+  border: 2px #4299e199 solid;
+}
+.register_card{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 40rem;
+  width: 40rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  padding: 1rem;
+}
+label{
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  margin-inline-end: 0.75rem;
+  display: block;
+  text-align: start;
+  
+}
+#Fname ,#Lname{
+  width: 100%;
 }
