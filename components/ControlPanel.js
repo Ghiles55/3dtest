@@ -40,7 +40,8 @@ let Customizer = () => {
       backPrint:{
         ...backPrintState
       },
-      price:price
+      price:price,
+      id: Date.now()
     }
     
     dispatch(cartActions.addItem(newCartItem))
@@ -90,8 +91,9 @@ let Customizer = () => {
             accept=".png,.jpg,.jpeg"
             style={{ display: "none" }}
             onChange={(e) => {
+              e.preventDefault()
               let file = e.target.files[0];
-              console.log(file);
+              console.log("ZZZZZZZZZZZZZZZ",file);
               let filePath = URL.createObjectURL(file);
               if (filePath) {
                 dispatch(frontDecalActions.changeImage(filePath));
@@ -101,11 +103,13 @@ let Customizer = () => {
           <label htmlFor="fileElem">
             Select a front print <BsFillFileEarmarkArrowUpFill />
           </label>
+          {frontPrintState.isDecal?
           <PrintEditor
             actions={frontDecalActions}
             sizeX={frontPrintState.size_x}
             sizeY={frontPrintState.size_y}
-          />
+          />:""
+        }
         </div>
         <Divider flexItem />
         <div className="b_print">
@@ -126,12 +130,15 @@ let Customizer = () => {
           <label htmlFor="b_print_select">
             Select a back print <BsFillFileEarmarkArrowUpFill />
           </label>
+          {backPrintState.isDecal?
           <PrintEditor actions={backDecalActions}
             sizeX={backPrintState.size_x}
-            sizeY={backPrintState.size_y} />
+            sizeY={backPrintState.size_y} />:""
+          
+        }
         </div>
         <Divider flexItem />
-        <div className="texture_selector">
+        {/* <div className="texture_selector">
           <input
             type="file"
             id="texutre_select"
@@ -149,8 +156,7 @@ let Customizer = () => {
           <label htmlFor="texutre_select">
             Select a texture print <BsFillFileEarmarkArrowUpFill />
           </label>
-        </div>
-        <Divider flexItem />
+        </div> */}
         <div className="customizer_actions">
           <button onClick={e=>{
             dispatch(frontDecalActions.resetValues())

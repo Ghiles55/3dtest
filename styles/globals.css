@@ -32,7 +32,7 @@ svg{
 }
 .customizer{
   width:38rem ;
-  min-height: 35rem;
+  min-height: fit-content;
   height: fit-content;
   background-color: azure;
   border-radius: 0.5rem;
@@ -228,7 +228,7 @@ align-items: center;
   position: absolute;
   top: 0;
   right: 0;
-  background-color: rgb(230, 77, 72);
+  background-color: rgb(184, 183, 183);
 }
 .backDrop{
   position: absolute;
@@ -253,4 +253,49 @@ align-items: center;
 }
 .cartActions h1{
   font-size: 2rem;
+}
+.cartItem{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 4rem;
+  padding:0.5rem;
+  align-items: center;
+  position: relative;
+}
+.cartItem img{
+  height:42px;
+  width:42px;
+  margin-right: 1rem;
+}
+.delete_CI{
+  position: absolute;
+  top:1rem;
+  right: 1rem;
+}
+.delete_CI svg{
+  font-size: 24px;
+}
+.itemList{
+  overflow-y: auto;
+  height: 70%;
+}
+.cartTotal{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 8rem;
+  padding: 1rem;
+}
+.cartTotal span{
+  font-size: 2rem;
+  font-weight: normal;
+}
+.cartTotal button{
+width: 95%;
+background-color: darkslateblue;
+height: 4rem;
+border-radius: 0.5rem;
 }

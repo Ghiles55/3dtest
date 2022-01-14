@@ -36,7 +36,7 @@ function Canva(props) {
               enableRotate={true}
             />
 
-            <ambientLight intensity={0.1} />
+            <ambientLight intensity={0.05} />
             <directionalLight
               color="white"
               position={[0, -2, 5]}
