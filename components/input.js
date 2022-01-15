@@ -9,6 +9,7 @@ const Input=(props)=>{
         className={props.class||"input_form"}
         id={props.id}
         type={props.type}
+        name={props.id}
         {...props}
         />
         </>

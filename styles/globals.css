@@ -301,7 +301,7 @@ border-radius: 0.5rem;
 .input_form:focus{
   border: 2px #4299e199 solid;
 }
-.register_card{
+.register_card, .login_card{
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -320,5 +320,29 @@ label{
   
 }
 #Fname ,#Lname{
-  width: 100%;
+  width: 80%;
+}
+#Address{
+  width: 60%;
+}
+#region_select{
+  padding-inline-end: 2rem;
+  width: 20%;
+  min-width: 0px;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  position: relative;
+  appearance: none;
+  border: 1px #CBD5E0 solid;
+  height: 2.5rem;
+  border-radius: 0.375rem;
+  margin-left: 2rem;
+  padding-inline-start: 1rem;
+}
+.center_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
