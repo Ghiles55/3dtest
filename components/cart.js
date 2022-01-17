@@ -2,11 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { BsArrowRight } from "react-icons/bs";
 import { cartActions } from "../store";
 import CartItem from "./cartItem";
+import { useRouter } from 'next/router'
 
 const Cart = () => {
   let cartState = useSelector((state) => state.cartReducer);
   let dispatch = useDispatch();
   console.log(cartState.cartItems);
+  let router= useRouter()
   return (
     <>
       <div
@@ -27,7 +29,9 @@ const Cart = () => {
         </div>
         <div className="cartTotal">
             <span>Your Total is: {cartState.cartItems.reduce((a, b)=> a + b.price,0)}</span>
-            <button>Checkout</button>
+            <button onClick={()=>{
+              router.push('/checkout')
+            }}>Checkout</button>
         </div>
       </div>
     </>

@@ -2,9 +2,11 @@ import { Formik, useFormik } from "formik";
 
 import { motion } from "framer-motion";
 import Input from "../components/input";
+import { useRouter } from 'next/router'
 
 const login = () => {
-  const validate = () => {
+    let router=useRouter()
+  const validate = (values) => {
     let errors = {};
     if (
       !values.email ||
@@ -16,7 +18,7 @@ const login = () => {
     ) {
       errors.email = "Please enter a valid email address";
     }
-    if (!values.Password || values.Password < 6) {
+    if (!values.Password || values.Password.length < 6) {
       errors.Password = "Your password must be at least 6 characters";
     } else if (values.Password.search(/\d/) == -1) {
       errors.Password = "Your password must contain at least one number";
@@ -29,7 +31,7 @@ const login = () => {
     }
   };
   async function loginRequest(values, actions) {
-    let data = await fetch("http://localhost:780/login", {
+    let response = await fetch("http://localhost:780/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,22 +40,27 @@ const login = () => {
         ...values,
       }),
     });
-    let response = await data.json();
-    console.log(response);
+    let data = await response.json();
+    console.log(response.status);
+    if(response.status==200){
+        localStorage.setItem("TOKEN", JSON.stringify(data.token))
+        router.push('/')
+    }
   }
   return (
     <div className="center_container">
       <div className="login_card">
-        <Formik initialValues={{ email: "", Password: "" }}
-        validate={validate}
-        onSubmit={(values,actions)=>{
-            console.log(values)
-            loginRequest(values)
-        }}
+        <Formik
+          initialValues={{ email: "", Password: "" }}
+          validate={validate}
+          onSubmit={(values, actions) => {
+            console.log(values);
+            loginRequest(values);
+          }}
         >
-        {(formik)=>{
-            <form id='login_form' onSubmit={formik.handleSubmit}>
-                <Input
+          {(formik) => (
+            <form id="login_form" onSubmit={formik.handleSubmit} style={{width:'100%'}}>
+              <Input
                 label="Email address"
                 id="email"
                 type="text"
@@ -68,11 +75,12 @@ const login = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
-              <div>{formik.errors.Password?formik.errors.Password:null}</div>
+              <div>
+                {formik.errors.Password ? formik.errors.Password : null}
+              </div>
+              <button type="submit">Login</button>
             </form>
-
-        }}
-
+          )}
         </Formik>
       </div>
     </div>

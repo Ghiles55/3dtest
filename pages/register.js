@@ -4,27 +4,20 @@ import { Formik, useFormik } from "formik";
 import { motion } from "framer-motion";
 import Input from "../components/input";
 import wilayas from "../public/wilayas";
+import { useRouter } from 'next/router'
+import {useState} from 'react'
 
 // let MotionInput = motion(Input);
 
 let RegisterForm = () => {
-  // let formik=useFormik({
-  //     initialValues: {
-  //       email: '',
-  //     },
-  //     validate:'',
-  //     onSubmit: values => {
-  //       alert(JSON.stringify(values, null, 2));
-  //     },
-  //   })
-  // console.log(formik)
-  console.log(wilayas);
+  let router =useRouter()
+  let [status,setStatus]=useState("")
   const validate = (values) => {
     let errors = {};
-    if (!values.firstName || values.firstName.lenght < 2 || values.firstName.lenght > 15) {
+    if (!values.firstName || values.firstName.length < 2 || values.firstName.length > 15) {
       errors.firstName = "Your name has to be between 2 and 15 characters";
     }
-    if (!values.lastName || values.lastName.lenght < 2 || values.lastName.lenght > 15) {
+    if (!values.lastName || values.lastName.length < 2 || values.lastName.length > 15) {
       errors.lastName = "Your name has to be between 2 and 15 characters";
     }
     if (
@@ -37,7 +30,7 @@ let RegisterForm = () => {
     ) {
       errors.email = "Please enter a valid email address";
     }
-    if (!values.Password || values.Password < 6) {
+    if (!values.Password || values.Password.length < 6) {
       errors.Password = "Your password must be at least 6 characters";
     } else if (values.Password.search(/\d/) == -1) {
       errors.Password = "Your password must contain at least one number";
@@ -48,26 +41,37 @@ let RegisterForm = () => {
     ) {
       errors.Password = "You are using a restricted special character";
     }
-    if (!values.Address || values.Address.lenght < 6) {
+    if (!values.Address || values.Address.length < 6) {
       errors.Address = "Please enter a valid address";
     }
-    if (!values.PhoneNumber || values.PhoneNumber.lenght < 10) {
+    if (!values.PhoneNumber || values.PhoneNumber.length < 10) {
       errors.PhoneNumber = "Please enter a valid phone number";
     }
+    console.log(errors,values.Password,values.Password.length)
     return errors;
   };
   async function registerRequest(values, actions) {
-    let data = await fetch("http://localhost:780/register", {
-      method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				...values
-			}),
-    });
-    let response = await data.json();
-    console.log(response);
+    try{
+      let response = await fetch("http://localhost:780/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...values
+        }),
+      });
+      let data = await response.json();
+      console.log(response.status);
+      if(response.status==200){
+        router.push('/login')
+      }else{
+        setStatus(data)
+      }
+
+    }catch(e){
+      console.log(e)
+    }
   }
   return (
     <div
@@ -152,7 +156,7 @@ let RegisterForm = () => {
                     Region
                   </option>
                   {wilayas.map((el) => (
-                    <option value={el.code}>{el.name}</option>
+                    <option value={el.name}>{el.name}</option>
                   ))}
                 </select>
               </div>
