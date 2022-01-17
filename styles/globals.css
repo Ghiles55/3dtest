@@ -346,6 +346,27 @@ label{
   width: 100vw;
   height: 100vh;
 }
+.checkout_cart_info{
+  width: 50%;
+  position: absolute;
+  top: 10rem;
+  right: 0;
+}
 .checkout_user_info{
   width: 50%;
+  position: absolute;
+  top: 10rem;
+  left: 0;
+}
+.admin_main_container{
+margin-top: 3rem;
+padding: 1rem;
+}
+.admin_header{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 3rem;
+  background-color: rgb(20, 108, 196);
 }
