@@ -370,3 +370,9 @@ padding: 1rem;
   height: 3rem;
   background-color: rgb(20, 108, 196);
 }
+.admin_chart{
+  width: 60vw;
+  margin-left: 2rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin-top: 2rem;
+}

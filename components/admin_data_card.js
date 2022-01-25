@@ -7,18 +7,18 @@ export const admin_data_card = (props) => {
       style={{
         display: "flex",
         flexDirection: "column",
-        width: "34rem",
+        width: "28rem",
         height: "14rem",
         padding: "1rem",
         borderRadius: "0.375rem",
         boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-        justifyContent: "center",
+        justifyContent: "space-around",
         alignItems: "center",
       }}
     >
       <span
         style={{
-          fontSize: "4rem",
+          fontSize: "3rem",
         }}
       >
         {props.title}
@@ -26,7 +26,7 @@ export const admin_data_card = (props) => {
       <Divider flexItem />
       <span
         style={{
-          fontSize: "4rem",
+          fontSize: "3rem",
         }}
       >
         {props.data}
