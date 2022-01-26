@@ -10,7 +10,7 @@ const checkout = () => {
   console.log(user, cartState);
   const order = async () => {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
-    let response = await fetch("http://localhost:780/order", {
+    let response = await fetch("http://localhost:830/order", {
       method: "POST",
       headers: {
         Authtoken: token,
@@ -28,7 +28,7 @@ const checkout = () => {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
 
     console.log("before fetch");
-    fetch("http://localhost:780/getuser", {
+    fetch("http://localhost:830/getuser", {
       method: "GET",
       headers: {
         Authtoken: token,

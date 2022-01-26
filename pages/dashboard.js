@@ -17,7 +17,7 @@ export const admin = () => {
   }-${date.getDate()}`)
 
   let userCountFetch = async () => {
-    let response = await fetch("http://localhost:780/userCount", {
+    let response = await fetch("http://localhost:830/userCount", {
       method: "GET",
       headers: {
         Authtoken:
@@ -30,7 +30,7 @@ export const admin = () => {
   };
 
   let orderNumberFetch = async () => {
-    let response = await fetch("http://localhost:780/getOrders", {
+    let response = await fetch("http://localhost:830/getOrders", {
       method: "GET",
       headers: {
         Authtoken:
@@ -44,7 +44,7 @@ export const admin = () => {
   let todayOrdersFetch = async () => {
     
     let response = await fetch(
-      `http://localhost:780/getOrders?day=${date.getFullYear()}-${
+      `http://localhost:830/getOrders?day=${date.getFullYear()}-${
         date.getMonth() + 1
       }-${date.getDate()}`,
       {

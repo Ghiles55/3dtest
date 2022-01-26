@@ -5,6 +5,7 @@ import modelReducer from "./modelReducer";
 import backDecalState from "./backPrintreducer";
 import loginState from "./loginReducer";
 import cartState from "./cartreducer";
+import ordersState from "./adminOrdersReducer";
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
     modelReducer: modelReducer.reducer,
     backImageReducer: backDecalState.reducer,
     loginReducer:loginState.reducer,
-    cartReducer:cartState.reducer
+    cartReducer:cartState.reducer,
+    ordersReducer: ordersState.reducer
   },
 });
 
@@ -21,4 +23,5 @@ export const modelActions = modelReducer.actions;
 export const backDecalActions= backDecalState.actions
 export const loginActions= loginState.actions
 export const cartActions= cartState.actions
+export const ordersActions= ordersState.actions
 export default store;

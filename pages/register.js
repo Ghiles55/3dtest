@@ -52,7 +52,7 @@ let RegisterForm = () => {
   };
   async function registerRequest(values, actions) {
     try{
-      let response = await fetch("http://localhost:780/register", {
+      let response = await fetch("http://localhost:830/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
