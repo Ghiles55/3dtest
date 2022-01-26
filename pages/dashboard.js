@@ -61,7 +61,7 @@ export const admin = () => {
       setOrdersToday(0)
     }else{
       let data = await response.json()
-      setOrdersToday(data.orders)
+      setOrdersToday(data.orders.length)
     }
     
   };
