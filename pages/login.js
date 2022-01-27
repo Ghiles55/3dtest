@@ -49,6 +49,22 @@ const login = () => {
   }
   return (
     <div className="center_container">
+      <div style={{
+        position:'absolute',
+        width:'40rem',
+        height:'8rem',
+        top:'5rem',
+        right:"50vw",
+        transform:'translateX(20rem)',
+       display:"flex",
+       justifyContent:'center',
+       alignItems:'center',
+       
+      }}>
+       <span style={{ fontFamily:"'Raleway', sans-serif;",
+        fontSize:'3rem',
+        fontWeight:'900'}}>Login</span>
+      </div>
       <div className="login_card">
         <Formik
           initialValues={{ email: "", Password: "" }}
