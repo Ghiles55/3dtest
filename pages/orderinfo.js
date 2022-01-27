@@ -7,29 +7,31 @@ import { useSelector, useDispatch } from "react-redux";
 
 const orderinfo = () => {
   let router = useRouter();
-  let id = router.query.id;
-  // let [order, setOrder] = useState([]);
-  let order= useSelector((state)=> state.ordersReducer.activeOrder[0])
+  let id;
+  let [order, setOrder] = useState([]);
+  // let order= useSelector((state)=> state.ordersReducer.activeOrder[0])
 
-  // console.log(order?.activeOrder[0])
-  // let fetchRequest=async()=>{
-  //   let response = await fetch("http://localhost:830/orderInfo", {
-  //     method: "GET",
-  //     headers: {
+  let fetchRequest=async()=>{
+    console.log("hello", document.history)
+    let response = await fetch("http://localhost:830/orderInfo", {
+      method: "GET",
+      headers: {
         
-  //       Authtoken:
-  //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJwYXNzIjoiYWRtaW4iLCJpYXQiOjE2NDI2MDA3MzF9.nf-ZD37D0oTUZT28TOXKhEzbPsSoSvWWKJj6jKBW13k",
-  //       "ID": id,
-  //     },
+        Authtoken:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJwYXNzIjoiYWRtaW4iLCJpYXQiOjE2NDI2MDA3MzF9.nf-ZD37D0oTUZT28TOXKhEzbPsSoSvWWKJj6jKBW13k",
+        "ID": router?.query?.id,
+      },
       
-  //   });
-  //   let data = await response.json();
-  //   console.log(data.orders[0]);
-  //   setOrder(data.orders[0]);
-  // }
-  // useEffect(async() => {
+    });
+    let data = await response.json();
+    setOrder(data.orders[0]);
+  }
+  useEffect(async() => {
+    id = router?.query?.id;
+    if(id)
+    fetchRequest();
     
-  // }, []);
+  }, [router, order.length]);
 
   console.log("QUERY",router.query.id);
 
@@ -50,7 +52,7 @@ const orderinfo = () => {
               fontSize: "2rem",
             }}
           >
-            Order ID: {id}
+            Order ID: {order._id}
           </h1>
         </div>
         <h1 style={{
