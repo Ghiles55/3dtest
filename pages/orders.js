@@ -5,15 +5,14 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { ordersActions } from "../store";
 
-
 const orders = () => {
   let [orders, setOrders] = useState([]);
   let [selected, setSelected] = useState([]);
-  let dispatch= useDispatch()
+  let dispatch = useDispatch();
   let Router = useRouter();
   let getOrders = async () => {
     try {
-      let response = await fetch("http://localhost:830/getOrders", {
+      let response = await fetch("http://localhost:840/getOrders", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -24,14 +23,14 @@ const orders = () => {
       let data = await response.json();
       console.log(data);
       setOrders(data.orders);
-      dispatch(ordersActions.setOrders(data.orders))
+      dispatch(ordersActions.setOrders(data.orders));
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
     getOrders();
-    let interval1= setInterval(() => {
+    let interval1 = setInterval(() => {
       getOrders();
     }, 10000);
     return () => {
@@ -87,7 +86,7 @@ const orders = () => {
                 event.defaultMuiPrevented = true;
                 console.log(params.id);
 
-                dispatch(ordersActions.setActiveOrder(params.id))
+                dispatch(ordersActions.setActiveOrder(params.id));
                 Router.push({
                   pathname: "/orderinfo",
                   query: { id: params.id },

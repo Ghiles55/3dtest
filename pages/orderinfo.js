@@ -13,7 +13,7 @@ const orderinfo = () => {
 
   let fetchRequest=async()=>{
     console.log("hello", document.history)
-    let response = await fetch("http://localhost:830/orderInfo", {
+    let response = await fetch("http://localhost:840/orderInfo", {
       method: "GET",
       headers: {
         
