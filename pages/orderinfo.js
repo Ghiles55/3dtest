@@ -13,23 +13,29 @@ const orderinfo = () => {
 
   let fetchRequest=async()=>{
     console.log("hello", document.history)
-    let response = await fetch("http://localhost:830/orderInfo", {
-      method: "GET",
-      headers: {
+    try{
+      let response = await fetch("http://localhost:830/orderInfo", {
+        method: "GET",
+        headers: {
+          
+          Authtoken:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJwYXNzIjoiYWRtaW4iLCJpYXQiOjE2NDI2MDA3MzF9.nf-ZD37D0oTUZT28TOXKhEzbPsSoSvWWKJj6jKBW13k",
+          "ID": router?.query?.id,
+        },
         
-        Authtoken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJwYXNzIjoiYWRtaW4iLCJpYXQiOjE2NDI2MDA3MzF9.nf-ZD37D0oTUZT28TOXKhEzbPsSoSvWWKJj6jKBW13k",
-        "ID": router?.query?.id,
-      },
-      
-    });
-    let data = await response.json();
-    setOrder(data.orders[0]);
+      });
+      let data = await response.json();
+      setOrder(data.orders[0]);
+
+    }catch(e){
+      console.log(e)
+    }
   }
-  useEffect(async() => {
+  useEffect(async() => {*
     id = router?.query?.id;
-    if(id)
-    fetchRequest();
+    if(id){
+      fetchRequest();
+    }
     
   }, [router, order.length]);
 
