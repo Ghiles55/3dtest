@@ -31,7 +31,7 @@ const orderinfo = () => {
       console.log(e)
     }
   }
-  useEffect(async() => {*
+  useEffect(async() => {
     id = router?.query?.id;
     if(id){
       fetchRequest();
