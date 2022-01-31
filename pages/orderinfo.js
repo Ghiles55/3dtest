@@ -14,7 +14,7 @@ const orderinfo = () => {
   let fetchRequest=async()=>{
     console.log("hello", document.history)
     try{
-      let response = await fetch("http://localhost:830/orderInfo", {
+      let response = await fetch("http://localhost:840/orderInfo", {
         method: "GET",
         headers: {
           

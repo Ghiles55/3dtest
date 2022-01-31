@@ -1,23 +1,30 @@
 import { Formik, useFormik } from "formik";
 
-
 import { motion } from "framer-motion";
 import Input from "../components/input";
 import wilayas from "../public/wilayas";
-import { useRouter } from 'next/router'
-import {useState} from 'react'
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 // let MotionInput = motion(Input);
 
 let RegisterForm = () => {
-  let router =useRouter()
-  let [status,setStatus]=useState("")
+  let router = useRouter();
+  let [status, setStatus] = useState("");
   const validate = (values) => {
     let errors = {};
-    if (!values.firstName || values.firstName.length < 2 || values.firstName.length > 15) {
+    if (
+      !values.firstName ||
+      values.firstName.length < 2 ||
+      values.firstName.length > 15
+    ) {
       errors.firstName = "Your name has to be between 2 and 15 characters";
     }
-    if (!values.lastName || values.lastName.length < 2 || values.lastName.length > 15) {
+    if (
+      !values.lastName ||
+      values.lastName.length < 2 ||
+      values.lastName.length > 15
+    ) {
       errors.lastName = "Your name has to be between 2 and 15 characters";
     }
     if (
@@ -47,38 +54,60 @@ let RegisterForm = () => {
     if (!values.PhoneNumber || values.PhoneNumber.length < 10) {
       errors.PhoneNumber = "Please enter a valid phone number";
     }
-    console.log(errors,values.Password,values.Password.length)
+    console.log(errors, values.Password, values.Password.length);
     return errors;
   };
   async function registerRequest(values, actions) {
-    try{
+    try {
       let response = await fetch("http://localhost:840/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...values
+          ...values,
         }),
       });
       let data = await response.json();
       console.log(response.status);
-      if(response.status==200){
-        router.push('/login')
-      }else{
-        setStatus(data)
+      if (response.status == 200) {
+        router.push("/login");
+      } else {
+        setStatus(data);
       }
-
-    }catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
   }
   return (
-    <div
-    className="center_container"
-    >
-      <div className="register_card" style={{}}>
-        <span> Register</span>
+    <div className="center_container">
+      <div
+        style={{
+          position: "absolute",
+          width: "40rem",
+          height: "8rem",
+          top: "2rem",
+          right: "50vw",
+          transform: "translateX(20rem)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "'Raleway', sans-serif;",
+            fontSize: "3rem",
+            fontWeight: "900",
+            marginBottom: "2rem",
+          }}
+        >
+          Create your account
+        </span>
+        <span> First, tell us a bit about you</span>
+      </div>
+      <div className="register_card">
         <Formik
           initialValues={{
             email: "",
@@ -87,18 +116,24 @@ let RegisterForm = () => {
             Password: "",
             Address: "",
             PhoneNumber: "",
-            
           }}
           validate={validate}
           onSubmit={(values, actions) => {
-            console.log(values,actions)
-            registerRequest(values,actions)
+            console.log(values, actions);
+            registerRequest(values, actions);
           }}
         >
           {(formik) => (
             <form id="register" onSubmit={formik.handleSubmit}>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <div style={{ width: "50%" }}>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent:'center'
+                }}
+              >
+                <div style={{ width: "50%", padding:'1rem' }}>
                   <Input
                     label="First name"
                     id="firstName"
@@ -106,9 +141,49 @@ let RegisterForm = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                   <div>{formik.errors.firstName?formik.errors.firstName:null}</div>
+                  {/* <div>{formik.errors.firstName?formik.errors.firstName:null}</div> */}
+                  {formik.errors.firstName && formik.touched.firstName ? (
+                    <div className="form_error">{formik.errors.firstName}</div>
+                  ) : null}
+
+                  <Input
+                    label="Email address"
+                    id="email"
+                    type="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.email && formik.touched.email ? (
+                    <div className="form_error">{formik.errors.email}</div>
+                  ) : null}
+                  <div>
+                    <Input
+                      label="Address"
+                      id="Address"
+                      type="text"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.errors.Address && formik.touched.Address ? (
+                      <div className="form_error">{formik.errors.Address}</div>
+                    ) : null}
+                    <select
+                      id="region_select"
+                      defaultValue="Region"
+                      name="region"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    >
+                      <option value="" disabled selected hidden>
+                        Region
+                      </option>
+                      {wilayas.map((el) => (
+                        <option value={el.name}>{el.name}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-                <div style={{ width: "50%" }}>
+                <div style={{ width: "50%",padding:'1rem' }}>
                   <Input
                     label="Last name"
                     id="lastName"
@@ -116,61 +191,37 @@ let RegisterForm = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <div>{formik.errors.lastName?formik.errors.lastName:null}</div>
+                  {formik.errors.lastName && formik.touched.lastName ? (
+                    <div className="form_error"> {formik.errors.lastName}</div>
+                  ) : null}
+                  <Input
+                    label="Password"
+                    id="Password"
+                    type="Password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.Password && formik.touched.Password ? (
+                    <div className="form_error">{formik.errors.Password}</div>
+                  ) : null}
+                  <Input
+                    label="Phone Number"
+                    id="PhoneNumber"
+                    type="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.PhoneNumber && formik.touched.PhoneNumber ? (
+                    <div className="form_error">
+                      {formik.errors.PhoneNumber}
+                    </div>
+                  ) : null}
                 </div>
               </div>
+              <button type="submit" className="login_btn" style={{ width:'80%'}}>
+                Create an account
+              </button>
 
-              <Input
-                label="Email address"
-                id="email"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              <div>{formik.errors.email ? formik.errors.email : null}</div>
-              <Input
-                label="Password"
-                id="Password"
-                type="Password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              <div>{formik.errors.Password?formik.errors.Password:null}</div>
-              <div>
-                <Input
-                  label="Address"
-                  id="Address"
-                  type="text"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <div>{formik.errors.Address?formik.errors.Address:null}</div>
-                <select
-                  id="region_select"
-                  defaultValue="Region"
-                  name="region"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                >
-                  <option value="" disabled selected hidden>
-                    Region
-                  </option>
-                  {wilayas.map((el) => (
-                    <option value={el.name}>{el.name}</option>
-                  ))}
-                </select>
-              </div>
-
-              <Input
-                label="Phone Number"
-                id="PhoneNumber"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              <div>{formik.errors.PhoneNumber?formik.errors.PhoneNumber:null}</div>
-              <button type="submit">Submit</button>
-              <div>{formik.errors?formik.errors.region:null}</div>
             </form>
           )}
         </Formik>

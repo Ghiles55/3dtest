@@ -13,7 +13,7 @@ const orders = () => {
   let Router = useRouter();
   let getOrders = async () => {
     try {
-      let response = await fetch("http://localhost:830/getOrders", {
+      let response = await fetch("http://localhost:840/getOrders", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

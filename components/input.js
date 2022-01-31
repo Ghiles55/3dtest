@@ -10,6 +10,7 @@ const Input=(props)=>{
         id={props.id}
         type={props.type}
         name={props.id}
+        onBlur={props.onBlur}
         {...props}
         />
         </>

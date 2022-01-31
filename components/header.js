@@ -2,12 +2,15 @@ import { BsFillCartFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "./cart";
 import { cartActions } from "../store";
+import { useRouter } from "next/router";
 
 
 const Header = (props) => {
     let isLogged= useSelector((state)=> state.loginReducer)
     let cartState= useSelector((state)=>state.cartReducer)
     let dispatch= useDispatch()
+    let router= useRouter()
+    console.log(router.route)
   return (
     <div className="header">
       <div className="logoContainer">
