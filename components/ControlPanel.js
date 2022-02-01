@@ -12,12 +12,15 @@ import { cartActions } from "../store/index";
 import { modelActions } from "../store/index";
 import { backDecalActions } from "../store/index";
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import cartState from "../store/cartreducer";
 
 let Customizer = () => {
   let frontPrintState = useSelector((state) => state.fontImageReducer);
   let modelState= useSelector((state)=>state.modelReducer)
   let backPrintState= useSelector((state)=>state.backImageReducer)
+  let [frontImageFile, setfrontImageFile]= useState({})
+  let [backImageFile, setbackImageFile]= useState({})
   let cartState = useSelector((state) => state.cartReducer);
   console.log(frontPrintState, frontDecalActions);
   let dispatch = useDispatch();
@@ -41,6 +44,8 @@ let Customizer = () => {
         ...backPrintState
       },
       price:price,
+      frontFile: frontImageFile,
+      backFile: backImageFile,
       id: Date.now()
     }
     
@@ -93,6 +98,7 @@ let Customizer = () => {
             onChange={(e) => {
               e.preventDefault()
               let file = e.target.files[0];
+              setfrontImageFile(file)
               console.log("ZZZZZZZZZZZZZZZ",file);
               let filePath = URL.createObjectURL(file);
               if (filePath) {
@@ -120,6 +126,7 @@ let Customizer = () => {
             style={{ display: "none" }}
             onChange={(e) => {
               let file = e.target.files[0];
+              setbackImageFile(file)
               console.log(file);
               let filePath = URL.createObjectURL(file);
               if (filePath) {

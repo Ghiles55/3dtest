@@ -24,6 +24,8 @@ const checkout = () => {
     let data = await response.json();
     console.log(response.status, data);
   };
+  
+
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
 

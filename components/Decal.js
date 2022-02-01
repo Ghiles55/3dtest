@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 const Decal = ({ mesh, disp, img, pos, state, actions }) => {
   // let image = useSelector(state => state.fontImageReducer.image)
   let dispatch = useDispatch();
+  
   const texture = useMemo(() => useLoader(TextureLoader, state.image));
   console.log(state,actions);
   console.log(texture.image.naturalHeight);
