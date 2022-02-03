@@ -28,7 +28,7 @@ const Cart = () => {
           ))}
         </div>
         <div className="cartTotal">
-            <span>Your Total is: {cartState.cartItems.reduce((a, b)=> a + b.price,0)}</span>
+            <span>Your Total is: { parseFloat(cartState.cartItems.reduce((a, b)=> a + b.price,0)).toFixed(2)  }</span>
             <button onClick={()=>{
               router.push('/checkout')
             }}>Checkout</button>

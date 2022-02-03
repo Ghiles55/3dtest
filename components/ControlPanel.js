@@ -26,6 +26,7 @@ let Customizer = () => {
   let dispatch = useDispatch();
   let addToCart=(e)=>{
     let price
+    let id= Date.now()
     if(modelState.model){
       price=19.99
       if(frontPrintState.isDecal) price += 2
@@ -38,15 +39,17 @@ let Customizer = () => {
     let newCartItem={
      ...modelState,
       frontPrint:{
-        ...frontPrintState
+        ...frontPrintState,
+        file: `${id}-fontPrint`,
       },
       backPrint:{
-        ...backPrintState
+        ...backPrintState,
+        file: `${id}-backPrint`
       },
-      price:price,
+      price: price.toFixed(2) ,
       frontFile: frontImageFile,
       backFile: backImageFile,
-      id: Date.now()
+      id: id
     }
     
     dispatch(cartActions.addItem(newCartItem))
