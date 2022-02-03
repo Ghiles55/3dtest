@@ -47,8 +47,14 @@ let Customizer = () => {
         file: `${id}-backPrint`
       },
       price: price.toFixed(2) ,
-      frontFile: frontImageFile,
-      backFile: backImageFile,
+      frontFile: {
+        file:frontImageFile,
+        type:frontImageFile.type
+      },
+      backFile:{
+        file:backImageFile,
+        type: backImageFile.type
+      },
       id: id
     }
     

@@ -42,7 +42,7 @@ const checkout = () => {
     });
     let data = await response.json();
     console.log(response.status, data);
-    cartState.cartItems.map((el)=> uploadImages(el.id,el.backFile,el.frontFile))
+    cartState.cartItems.map((el)=> uploadImages(el.id,el.backFile.file,el.frontFile.file))
   };
   
   
