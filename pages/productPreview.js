@@ -79,7 +79,7 @@ function Canva(props) {
                 // texture={modelState.texture}
                 // test={test}
               />
-              {activeItem.selectedArticle.frontPrint.isDecal && (
+              {activeItem.selectedArticle.frontPrint.isDecal && mesh? (
                 <Decal
                   mesh={mesh}
                 //   disp={display}
@@ -89,8 +89,8 @@ function Canva(props) {
                   state={activeItem.selectedArticle.frontPrint}
                 //   actions={frontDecalActions}
                 />
-              )}
-              {activeItem.selectedArticle.backPrint.isDecal && (
+              ):null}
+              {activeItem.selectedArticle.backPrint.isDecal && mesh? (
                 <Decal
                   mesh={mesh}
                 //   disp={display}
@@ -100,7 +100,7 @@ function Canva(props) {
                   state={activeItem.selectedArticle.backPrint}
                 //   actions={backDecalActions}
                 />
-              )}
+              ):null}
               {/* {display && <Decal mesh={mesh} disp={display} img={files} model={model} pos={-1} />} */}
             </Suspense>
           </Provider>

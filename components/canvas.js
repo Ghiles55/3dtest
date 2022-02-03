@@ -82,7 +82,7 @@ function Canva(props) {
                 <Decal
                   mesh={mesh}
                   disp={display}
-                  img={files}
+                  img={frontDecalState.image}
                   model={model}
                   pos={0.4}
                   state={frontDecalState}
@@ -93,7 +93,7 @@ function Canva(props) {
                 <Decal
                   mesh={mesh}
                   disp={display}
-                  img={files}
+                  img={backDecalState.image}
                   model={model}
                   pos={-1}
                   state={backDecalState}
