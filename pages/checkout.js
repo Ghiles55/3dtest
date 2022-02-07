@@ -3,29 +3,30 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import CheckoutItem from "../components/checkoutItem";
 import Divider from "@mui/material/Divider";
+import Header from "../components/header";
+import { display, width } from "@mui/system";
 
 const checkout = () => {
   let [user, setUser] = useState("");
+
   let cartState = useSelector((state) => state.cartReducer);
 
   console.log(user, cartState);
 
-  const uploadImages= async(id,backFile,frontFile)=>{
+  const uploadImages = async (id, backFile, frontFile) => {
+    let data = new FormData();
+    data.append("frontPrint", frontFile);
+    data.append("backPrint", backFile);
 
-    let data= new FormData()
-    data.append('frontPrint', frontFile)
-    data.append('backPrint',backFile)
-
-    let response= await fetch('http://localhost:840/uploadPrint',{
-      method:'POST',
-      headers:{
-        artId: id
+    let response = await fetch("http://localhost:840/uploadPrint", {
+      method: "POST",
+      headers: {
+        artId: id,
       },
-      body:data
-    })
-    console.log(response.text())
-  }
-
+      body: data,
+    });
+    console.log(response.text());
+  };
 
   const order = async () => {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
@@ -33,19 +34,19 @@ const checkout = () => {
       method: "POST",
       headers: {
         Authtoken: token,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-				items:cartState.cartItems,
-        
-			}),
+        items: cartState.cartItems,
+      }),
     });
     let data = await response.json();
     console.log(response.status, data);
-    cartState.cartItems.map((el)=> uploadImages(el.id,el.backFile.file,el.frontFile.file))
+    cartState.cartItems.map((el) =>
+      uploadImages(el.id, el.backFile.file, el.frontFile.file)
+    );
   };
-  
-  
+
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
 
@@ -63,7 +64,8 @@ const checkout = () => {
 
   return (
     <>
-    {/* <div className="checkout_container">
+      <Header />
+      {/* <div className="checkout_container">
 
       <div style={{
         position:'absolute',
@@ -173,36 +175,123 @@ const checkout = () => {
        */}
 
       <div className="checkout_main_container">
-      <p style={{
+        {/* <p style={{
         fontSize:"2rem",
         fontWeight:'600',
-        marginLeft:"2rem"
-      }}>Checkout</p>
-      <div style={{
-        height:'90vh',
-        width:'40vw',
-        display:'flex',
-        flexDirection:'column',
-        justifyContent:'space-between'
-      }}>
-        <div className="checkout_user_card">
-        {/* <img src="http://localhost:840/1643725163465-frontPrint.png" style={{ width:"28px"}}/> */}
-        <button
-        style={{
-          position: "absolute",
-          right: "50%",
-          bottom: "5rem",
-          backgroundColor: "blueviolet",
-          borderRadius: "0.375rem",
-          width: "6rem",
-          height: "4rem",
-        }}
-        onClick={order}
-      >
-        Confirm Order
-      </button>
+      }}>Checkout</p> */}
+        <div
+          style={{
+            height: "90vh",
+            width: "55vw",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <div className="checkout_user_card">
+            <p className="header_text_s">Your Personnal Informations</p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                height: "70%",
+                marginTop: "2rem",
+                marginLeft: "2rem",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "30%",
+                  height: "100%",
+                  justifyContent: "space-around",
+                }}
+              >
+                <p className="body_text_b">First name :</p>
+                <p className="body_text_b">Last name :</p>
+                <p className="body_text_b">Email :</p>
+                <p className="body_text_b">Phone number :</p>
+                <p className="body_text_b">Delivery address :</p>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "70%",
+                  height: "100%",
+                  justifyContent: "space-around",
+                }}
+              >
+                <p className="body_text_b">{user.firstName}</p>
+                <p className="body_text_b">{user.lastName}</p>
+                <p className="body_text_b">{user.email}</p>
+                <p className="body_text_b">{user.phoneNumber}</p>
+                <p className="body_text_b">{user.address}</p>
+              </div>
+            </div>
+          </div>
+          <div className="checkout_payment_card"></div>
         </div>
-      </div>
+        <div className="order_summary_card">
+          <p className="header_text_s">Order Summary</p>
+          <div style={{ marginTop: "2rem", height: "70%", overflowY: "auto" }}>
+            {cartState.cartItems.map((el) => (
+              <CheckoutItem
+                model={el.model}
+                size={el.size}
+                color={el.color}
+                price={el.price}
+                frontP={el.frontPrint.image}
+                backP={el.backPrint.image}
+              />
+            ))}
+            {/* <CheckoutItem
+              model={true}
+              size={"M"}
+              color={"#e6aca8"}
+              price={"19.99"}
+              frontP={true}
+              backP={true}
+            /> */}
+          </div>
+          <Divider flexItem />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              height: "10%",
+              justifyContent: "space-between",
+              paddingLeft: "1rem",
+              paddingRight: "1rem",
+              alignItems: "center",
+            }}
+          >
+            <p style={{ fontSize: "1.5rem", fontWeight: "600" }}>
+              {" "}
+              Your Total :{" "}
+            </p>
+            <p style={{ fontSize: "1.5rem", fontWeight: "800" }}>
+              {cartState.cartItems.reduce((a, b) => a + b.price, 0) || 0}
+            </p>
+          </div>
+          <button
+            style={{
+              marginTop:'2rem',
+              width:'100%',
+              color:"white",
+              fontSize:"1rem",
+              fontWeight:'600',
+              backgroundColor: "#0B0A0C",
+              borderRadius: "0.375rem",
+              height: "3.5rem",
+            }}
+            onClick={order}
+          >
+            Confirm Order
+          </button>
+        </div>
       </div>
     </>
   );

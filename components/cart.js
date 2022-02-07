@@ -17,7 +17,7 @@ const Cart = () => {
       ></div>
       <div className="cart">
         <div className="cartActions">
-          <h1>Your Cart</h1>
+          <h1 >Your Cart</h1>
           <button onClick={(e) => dispatch(cartActions.toggleCart(false))}>
             <BsArrowRight />
           </button>

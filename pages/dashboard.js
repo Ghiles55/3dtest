@@ -100,6 +100,11 @@ export const admin = () => {
                 "May",
                 "June",
                 "July",
+                "August", 
+                "September",
+                "October",
+                "November",
+                "December"
               ],
               datasets: [
                 {

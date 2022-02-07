@@ -5,7 +5,9 @@ import Input from "../components/input";
 import wilayas from "../public/wilayas";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
+import Snackbar from '@mui/material/Snackbar';
+import Alert from "@mui/material/Alert";
+import Link from "next/link";
 // let MotionInput = motion(Input);
 
 let RegisterForm = () => {
@@ -73,15 +75,19 @@ let RegisterForm = () => {
       if (response.status == 200) {
         router.push("/login");
       } else {
-        setStatus(data);
+        setStatus(data.status);
+        console.log(data, status)
       }
     } catch (e) {
       console.log(e);
     }
   }
+  const handleClose= ()=>{
+    setStatus("")
+  }
   return (
     <div className="center_container">
-      <div
+      {/* <div
         style={{
           position: "absolute",
           width: "40rem",
@@ -106,8 +112,14 @@ let RegisterForm = () => {
           Create your account
         </span>
         <span> First, tell us a bit about you</span>
+      </div> */}
+      <div className="register_side_banner">
+        <img style={{ height:"100%", width:'90%'}} src='/undraw_2.svg'/>
       </div>
       <div className="register_card">
+        <div style={ {display:'flex', flexDirection:'column', width:'100%', height:"80%"}}>
+        <p style={{fontSize: '3rem', fontWeight: 600, fontFamily:'Raleway' }}>Sign Up !</p>
+        <p style={{ marginTop:'0.5rem', marginLeft:'0.5rem'}}> First tell us a bit about yourself</p>
         <Formik
           initialValues={{
             email: "",
@@ -218,13 +230,23 @@ let RegisterForm = () => {
                   ) : null}
                 </div>
               </div>
-              <button type="submit" className="login_btn" style={{ width:'80%'}}>
+              <button type="submit" className="login_btn" style={{ width:'20rem'}}>
                 Create an account
               </button>
-
+              <p className="login_bottom_action">
+                    Already have an account ?  
+                    <Link href="/login"> Login instead !</Link>{" "}
+                  </p>
             </form>
           )}
         </Formik>
+        </div>
+        <Snackbar open={status?true:false} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {status}
+        </Alert>
+      </Snackbar>
+
       </div>
     </div>
   );

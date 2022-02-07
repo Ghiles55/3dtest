@@ -4,6 +4,7 @@ import Adminheader from "../components/adminHeader";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { ordersActions } from "../store";
+import DeleteCard from "../components/deleteCard";
 
 
 const orders = () => {
@@ -82,7 +83,7 @@ const orders = () => {
           ""
         ) : (
           <DataGrid
-            onCellDoubleClick={(params, event) => {
+          onRowDoubleClick={(params, event) => {
               if (!event.ctrlKey) {
                 event.defaultMuiPrevented = true;
                 console.log(params.id);
@@ -94,6 +95,10 @@ const orders = () => {
                 });
               }
             }}
+            onSelectionModelChange={(ids)=>{
+              console.log(ids)
+              setSelected(ids)
+            }}
             rows={rows}
             columns={columns}
             pageSize={10}
@@ -102,6 +107,7 @@ const orders = () => {
           />
         )}
       </div>
+      <DeleteCard items={selected} type="orders"/>
     </>
   );
 };

@@ -57,7 +57,7 @@ function Canva(props) {
               position={[0, 2, 0]}
               intensity={0.2}
             />
-            <color attach={"background"} args={["#03544e"]} />
+            <color attach={"background"} args={["#CBD5E0"]} />
 
             <Suspense fallback={null}>
               {/* {model && (
@@ -78,7 +78,7 @@ function Canva(props) {
                 texture={modelState.texture}
                 test={test}
               />
-              {frontDecalState.isDecal && (
+              {frontDecalState.isDecal && mesh ? (
                 <Decal
                   mesh={mesh}
                   disp={display}
@@ -88,8 +88,8 @@ function Canva(props) {
                   state={frontDecalState}
                   actions={frontDecalActions}
                 />
-              )}
-              {backDecalState.isDecal && (
+              ):null}
+              {backDecalState.isDecal && mesh?  (
                 <Decal
                   mesh={mesh}
                   disp={display}
@@ -99,7 +99,7 @@ function Canva(props) {
                   state={backDecalState}
                   actions={backDecalActions}
                 />
-              )}
+              ):null}
               {/* {display && <Decal mesh={mesh} disp={display} img={files} model={model} pos={-1} />} */}
             </Suspense>
           </Provider>
