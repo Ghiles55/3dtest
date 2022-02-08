@@ -8,6 +8,7 @@ import { useState } from "react";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from "@mui/material/Alert";
 import Link from "next/link";
+import { transition } from "@chakra-ui/react";
 // let MotionInput = motion(Input);
 
 let RegisterForm = () => {
@@ -85,8 +86,30 @@ let RegisterForm = () => {
   const handleClose= ()=>{
     setStatus("")
   }
+  const containerVariants={
+   initial:{
+     x:'50vw',
+     opacity:0
+   },
+   fadeIn:{
+     x:0,
+     opacity:1,
+     transition:{
+       type:'spring',
+       damping:18,
+       duration:0.2
+     }
+   },
+   exit:{
+     x:"-100vw",
+     opacity:0,
+     transition:{
+       duration:0.3
+     }
+   }
+  }
   return (
-    <div className="center_container">
+    <motion.div className="center_container" variants={containerVariants} initial='initial' animate='fadeIn' exit="exit" >
       {/* <div
         style={{
           position: "absolute",
@@ -248,7 +271,7 @@ let RegisterForm = () => {
       </Snackbar>
 
       </div>
-    </div>
+    </motion.div>
   );
 };
 

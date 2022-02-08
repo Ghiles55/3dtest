@@ -54,9 +54,31 @@ const login = () => {
       setLoginfailed(true);
     }
   }
+  const containerVariants={
+    initial:{
+      x:'50vw',
+      opacity:0
+    },
+    fadeIn:{
+      x:0,
+      opacity:1,
+      transition:{
+        type:'spring',
+        damping:18,
+        duration:0.2
+      }
+    },
+    exit:{
+      x:"-100vw",
+      opacity:0,
+      transition:{
+        duration:0.3
+      }
+    }
+   }
   return (
     <>
-      <div className="center_container_log">
+      <motion.div className="center_container_log" variants={containerVariants} initial='initial' animate="fadeIn" exit="exit">
         <div
           style={{
             position: "absolute",
@@ -140,7 +162,7 @@ const login = () => {
             )}
           </Formik>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
