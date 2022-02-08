@@ -48,6 +48,9 @@ export default function Home() {
           <Header />
           <Canva />
           <Customizer />
+          {/* <div style={{position:'absolute',height:"100vh", width:'50vw', left:0 , zIndex:'-1', backgroundImage:'url(background_4.jpg)'}}>
+
+          </div> */}
         </div>
       ) : (
         <Redirect/>

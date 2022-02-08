@@ -40,7 +40,8 @@ const Header = (props) => {
             </>
         )}
       </div>
-        {cartState.showCart&& <Cart/>}
+        {/* {cartState.showCart&& <Cart/>} */}
+        <Cart/>
     </div>
   );
 };
