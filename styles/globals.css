@@ -431,6 +431,11 @@ label{
 	
 	height: 100vh;
 }
+.background{
+  height: 100vh;
+  width: 100vw;
+  background-color: #E4E7EB;
+}
 .center_container_log{
   display: flex;
   justify-content: center;

@@ -19,7 +19,7 @@ const CartItem = (props) => {
   }
   return (
     <>
-      <motion.div className="cartItem" variants={cartItemVariants} initial='initial' animate='fadeIn' layout>
+      <motion.div className="cartItem" variants={cartItemVariants} initial='initial' animate='fadeIn' whileHover={{ scale: 1.03}} layout>
         <div className="itemImg">
           <img
             src={

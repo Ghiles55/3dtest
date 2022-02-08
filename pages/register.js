@@ -1,6 +1,6 @@
 import { Formik, useFormik } from "formik";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Input from "../components/input";
 import wilayas from "../public/wilayas";
 import { useRouter } from "next/router";
@@ -9,11 +9,13 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from "@mui/material/Alert";
 import Link from "next/link";
 import { transition } from "@chakra-ui/react";
+import { v4 as uuidv4 } from 'uuid'
 // let MotionInput = motion(Input);
 
 let RegisterForm = () => {
   let router = useRouter();
   let [status, setStatus] = useState("");
+  
   const validate = (values) => {
     let errors = {};
     if (
@@ -97,7 +99,8 @@ let RegisterForm = () => {
      transition:{
        type:'spring',
        damping:18,
-       duration:0.2
+       duration:0.2,
+       when: "beforeChildren"
      }
    },
    exit:{
@@ -108,8 +111,33 @@ let RegisterForm = () => {
      }
    }
   }
+  const cardVariants={
+    initial:{
+      y:10,
+      opacity:0
+    },
+    fadeIn:{
+      y:0 ,
+      opacity: 1
+    }
+  }
+  const errorsVariants={
+initial:{
+  y:-5,
+  opacity:0
+},
+animate:{
+  y:0,
+  opacity:1
+},
+exit:{
+  y:-5,
+  opacity:0
+}
+  }
   return (
-    <motion.div className="center_container" variants={containerVariants} initial='initial' animate='fadeIn' exit="exit" >
+    <motion.div className="background"  variants={containerVariants} initial='initial' animate='fadeIn' exit="exit">
+    <div className="center_container"  >
       {/* <div
         style={{
           position: "absolute",
@@ -139,7 +167,7 @@ let RegisterForm = () => {
       <div className="register_side_banner">
         <img style={{ height:"100%", width:'90%'}} src='/undraw_2.svg'/>
       </div>
-      <div className="register_card">
+      <motion.div className="register_card" variants={cardVariants} >
         <div style={ {display:'flex', flexDirection:'column', width:'100%', height:"80%"}}>
         <p style={{fontSize: '3rem', fontWeight: 600, fontFamily:'Raleway' }}>Sign Up !</p>
         <p style={{ marginTop:'0.5rem', marginLeft:'0.5rem'}}> First tell us a bit about yourself</p>
@@ -169,6 +197,8 @@ let RegisterForm = () => {
                 }}
               >
                 <div style={{ width: "50%", padding:'1rem' }}>
+                  <AnimatePresence>
+                    
                   <Input
                     label="First name"
                     id="firstName"
@@ -178,7 +208,7 @@ let RegisterForm = () => {
                   />
                   {/* <div>{formik.errors.firstName?formik.errors.firstName:null}</div> */}
                   {formik.errors.firstName && formik.touched.firstName ? (
-                    <div className="form_error">{formik.errors.firstName}</div>
+                    <motion.div variants={errorsVariants} initial='initial' animate='animate' exit={{ y:-5, opacity: 0}}  className="form_error">{formik.errors.firstName}</motion.div>
                   ) : null}
 
                   <Input
@@ -189,7 +219,7 @@ let RegisterForm = () => {
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.email && formik.touched.email ? (
-                    <div className="form_error">{formik.errors.email}</div>
+                    <motion.div variants={errorsVariants} initial='initial' animate='animate' exit='exit' className="form_error">{formik.errors.email}</motion.div>
                   ) : null}
                   <div>
                     <Input
@@ -217,6 +247,7 @@ let RegisterForm = () => {
                       ))}
                     </select>
                   </div>
+                  </AnimatePresence>
                 </div>
                 <div style={{ width: "50%",padding:'1rem' }}>
                   <Input
@@ -270,7 +301,8 @@ let RegisterForm = () => {
         </Alert>
       </Snackbar>
 
-      </div>
+      </motion.div>
+    </div>
     </motion.div>
   );
 };

@@ -65,7 +65,8 @@ const login = () => {
       transition:{
         type:'spring',
         damping:18,
-        duration:0.2
+        duration:0.2,
+        when:'beforeChildren'
       }
     },
     exit:{
@@ -76,9 +77,22 @@ const login = () => {
       }
     }
    }
+  
+  const childrenVariants={
+    initial:{
+      y:10,
+      opacity:0
+    },
+    fadeIn:{
+      y:0 ,
+      opacity: 1
+    }
+  }
   return (
     <>
       <motion.div className="center_container_log" variants={containerVariants} initial='initial' animate="fadeIn" exit="exit">
+        <motion.div variants={childrenVariants}>
+
         <div
           style={{
             position: "absolute",
@@ -86,7 +100,7 @@ const login = () => {
             height: "8rem",
             top: "5rem",
             right: "50vw",
-            transform: "translateX(20rem)",
+            // transform: "translateX(20rem)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -105,7 +119,7 @@ const login = () => {
           </span>
           <span> one more step before you can get started !</span>
         </div>
-        <div className="login_card">
+        <div className="login_card" >
           <Formik
             initialValues={{ email: "", Password: "" }}
             validate={validate}
@@ -162,6 +176,7 @@ const login = () => {
             )}
           </Formik>
         </div>
+        </motion.div>
       </motion.div>
     </>
   );
