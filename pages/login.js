@@ -6,10 +6,15 @@ import Header from "../components/header";
 import Link from "next/link";
 import Alert from "@mui/material/Alert";
 import { useState } from "react";
+import  DarkModeToggle from '../components/darkModeToggle'
+import { useSelector, useDispatch } from "react-redux";
+
+
 
 const login = () => {
   let [loginfailed, setLoginfailed] = useState(false);
   let router = useRouter();
+  let darkMode= useSelector((state)=> state.globalReducer.darkMode)
   const validate = (values) => {
     let errors = {};
     if (
@@ -49,7 +54,7 @@ const login = () => {
     console.log(response.status);
     if (response.status == 200) {
       localStorage.setItem("TOKEN", JSON.stringify(data.token));
-      router.push("/");
+      router.push("/customiser");
     } else if (response.status == 300) {
       setLoginfailed(true);
     }
@@ -90,16 +95,23 @@ const login = () => {
   }
   return (
     <>
-      <motion.div className="center_container_log" variants={containerVariants} initial='initial' animate="fadeIn" exit="exit">
-        <motion.div variants={childrenVariants}>
-
-        <div
+      <motion.div className={`center_container_log ${darkMode?'dark_dark':""}`}  variants={containerVariants} initial='initial' animate="fadeIn" exit="exit">
+        <motion.div
+        style={{position:'absolute', top:"2rem", right:'2rem' }}
+        >
+          <DarkModeToggle/>
+        </motion.div>
+        <motion.div
+          initial={{x:'20rem', y:10, opacity:0 }}
+          animate={{ y:0, opacity:1 }}
+          transition={{ delay:0.5}}
           style={{
             position: "absolute",
             width: "40rem",
             height: "8rem",
             top: "5rem",
             right: "50vw",
+            transform:'translateX(20rem)',
             // transform: "translateX(20rem)",
             display: "flex",
             justifyContent: "center",
@@ -118,8 +130,10 @@ const login = () => {
             Login to your account
           </span>
           <span> one more step before you can get started !</span>
-        </div>
-        <div className="login_card" >
+        </motion.div>
+        <motion.div variants={childrenVariants}>
+
+        <div className={`login_card ${darkMode?'dark_light':""}`} >
           <Formik
             initialValues={{ email: "", Password: "" }}
             validate={validate}
@@ -141,6 +155,7 @@ const login = () => {
                     type="text"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    dark={darkMode}
                   />
                   {/* <div>{formik.errors.email ? formik.errors.email : null}</div> */}
                   {formik.errors.email && formik.touched.email ? (
@@ -153,6 +168,7 @@ const login = () => {
                   type="Password"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  dark={darkMode}
                 />
                 {formik.errors.Password && formik.touched.Password ? (
                   <div className="form_error">{formik.errors.Password}</div>

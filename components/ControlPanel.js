@@ -4,7 +4,6 @@ import { BsFillFileEarmarkArrowUpFill } from "react-icons/bs";
 import { GiHoodie } from "react-icons/gi";
 import Divider from "@mui/material/Divider";
 import PrintEditor from "./PrintEditor";
-import Button from "@mui/material/Button";
 import { BsCartPlusFill } from "react-icons/bs";
 import { GrPowerReset } from "react-icons/gr";
 import { frontDecalActions } from "../store/index";
@@ -14,6 +13,7 @@ import { backDecalActions } from "../store/index";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import cartState from "../store/cartreducer";
+import { motion, AnimatePresence, animate } from "framer-motion";
 
 let Customizer = () => {
   let frontPrintState = useSelector((state) => state.fontImageReducer);
@@ -66,31 +66,31 @@ let Customizer = () => {
     <div className="custom_container">
       <div className="customizer">
         <div className="model_picker">
-          <button onClick={(e) => dispatch(modelActions.changeModel(false))}>
+          <motion.button animate={!modelState.model?{ backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeModel(false))}>
             T-shirt <FaTshirt />{" "}
-          </button>
+          </motion.button>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <button onClick={(e) => dispatch(modelActions.changeModel(true))}>
+          <motion.button  animate={modelState.model?{ backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeModel(true))}>
             Hoodie <GiHoodie />{" "}
-          </button>
+          </motion.button>
         </div>
         <Divider flexItem />
         <div className="size_picker">
-          <button onClick={(e) => dispatch(modelActions.changeSize("S"))}>
+          <motion.button animate={ modelState.size=="S"?{backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeSize("S"))}>
             S
-          </button>
+          </motion.button>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <button onClick={(e) => dispatch(modelActions.changeSize("M"))}>
+          <motion.button animate={ modelState.size=="M"?{backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeSize("M"))}>
             M
-          </button>
+          </motion.button>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <button onClick={(e) => dispatch(modelActions.changeSize("L"))}>
+          <motion.button animate={ modelState.size=="L"?{backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeSize("L"))}>
             L
-          </button>
+          </motion.button>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <button onClick={(e) => dispatch(modelActions.changeSize("XL"))}>
+          <motion.button animate={ modelState.size=="XL"?{backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeSize("XL"))}>
             XL
-          </button>
+          </motion.button>
         </div>
         <Divider flexItem />
         <div className="color_picker">
@@ -174,18 +174,25 @@ let Customizer = () => {
           </label>
         </div> */}
         <div className="customizer_actions">
-          <button onClick={e=>{
+          <motion.button 
+          whileHover={{ scale:1.05}}
+          whileTap={{ scale: 0.95}}
+          style={{ backgroundColor:'#cbd2d9'}}
+          onClick={e=>{
             dispatch(frontDecalActions.resetValues())
             dispatch(modelActions.resetValues())
             dispatch(backDecalActions.resetValues())
           }}>
             {" "}
             <GrPowerReset /> Reset
-          </button>
-          <button onClick={addToCart}>
+          </motion.button>
+          <motion.button  
+          whileHover={{ scale:1.05}}
+          whileTap={{ scale: 0.95}}
+          onClick={addToCart}>
             {" "}
             <BsCartPlusFill /> Add to cart
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>

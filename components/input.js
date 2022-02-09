@@ -6,7 +6,7 @@ const Input=(props)=>{
         <>
         <label htmlFor={props.id}>{props.label}</label>
         <motion.input
-        className={props.class||"input_form"}
+        className={props.class||`input_form ${props.dark?"dark_lighter":""}`}
         id={props.id}
         type={props.type}
         name={props.id}

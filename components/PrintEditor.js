@@ -5,11 +5,14 @@ import {
   BsFillArrowRightSquareFill,
   BsFillArrowUpSquareFill,
 } from "react-icons/bs";
+import {FaArrowRight,FaArrowUp,FaArrowDown,FaArrowLeft } from 'react-icons/fa'
 import { useDispatch } from "react-redux";
+import {motion} from 'framer-motion'
 
 const PrintEditor = (props) => {
   console.log(props);
   let dispatch = useDispatch();
+  
   return (
     <div className="printEditorContainer">
       <div className="PrintSizeEditor">
@@ -28,7 +31,7 @@ const PrintEditor = (props) => {
         <Slider
           defaultValue={1}
           min={0.2}
-          max={5}
+          max={1.5}
           step={0.1}
           aria-label="Height"
           valueLabelDisplay="auto"
@@ -37,36 +40,48 @@ const PrintEditor = (props) => {
           }
         />
       </div>
-      <div className="PrintPositionEditor">
+      <motion.div className="PrintPositionEditor">
         <span>Position:</span>
         <br />
-        <button
+        <motion.button
+          whileHover={{ scale:1.2}}
+          whileTap={{ scale: 0.9}}
+          initial={{ translateX: "38px"}}
           id="up_arrow"
           onClick={(e) => dispatch(props.actions.changePositionY(0.1))}
         >
-          <BsFillArrowUpSquareFill />
-        </button>
+          <FaArrowUp />
+        </motion.button>
         <br />
-        <button
+        <motion.button
+        whileHover={{ scale:1.2}}
+        whileTap={{ scale: 0.9}}
+        initial={{ translateX: "16px"}}
           id="left_arrow"
           onClick={(e) => dispatch(props.actions.changePositionX(-0.1))}
         >
-          <BsFillArrowLeftSquareFill />
-        </button>
-        <button
+          <FaArrowLeft />
+        </motion.button>
+        <motion.button
+        whileHover={{ scale:1.2}}
+        whileTap={{ scale: 0.9}}
+        initial={{ translateX: "28px"}}
           id="right_arrow"
           onClick={(e) => dispatch(props.actions.changePositionX(0.1))}
         >
-          <BsFillArrowRightSquareFill />
-        </button>
+          <FaArrowRight />
+        </motion.button>
         <br />
-        <button
+        <motion.button
+        whileHover={{ scale:1.2}}
+        whileTap={{ scale: 0.9}}
+        initial={{ translateX: "38px"}}
           id="down_arrow"
           onClick={(e) => dispatch(props.actions.changePositionY(-0.1))}
         >
-          <BsFillArrowDownSquareFill />
-        </button>
-      </div>
+          <FaArrowDown />
+        </motion.button>
+      </motion.div>
     </div>
   );
 };

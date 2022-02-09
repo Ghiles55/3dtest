@@ -4,8 +4,8 @@ import { cartActions } from "../store";
 import CartItem from "./cartItem";
 import { useRouter } from "next/router";
 import { Divider } from "@mui/material";
-import { position, transition } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
+
 
 const Cart = () => {
   let cartState = useSelector((state) => state.cartReducer);
@@ -118,6 +118,7 @@ const Cart = () => {
               }}
               onClick={() => {
                 router.push("/checkout");
+                dispatch(cartActions.toggleCart(false))
               }}
             >
               Checkout
