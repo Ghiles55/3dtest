@@ -27,7 +27,7 @@ function Canva(props) {
 
   return (
     <>
-      <div id="canvas-container" style={{ height: "100vh", width: "50vw" }}>
+      <div id="canvas-container" style={{ height: "100vh", width: "70vw" }}>
         <Canvas camera={{ fov: 60 }}>
           <Provider store={store}>
             <OrbitControls

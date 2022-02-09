@@ -10,8 +10,9 @@ import { motion, AnimatePresence } from "framer-motion";
 const Cart = () => {
   let cartState = useSelector((state) => state.cartReducer);
   let dispatch = useDispatch();
-  console.log(cartState.cartItems);
+  console.log(cartState.cartItems)
   let router = useRouter();
+  console.log(router.pathname);
   let cartVariants = {
     initial: {
       x: "30vw",
@@ -79,6 +80,8 @@ const Cart = () => {
                   price={el.price}
                   key={el.id}
                   id={el.id}
+                  fPrint={el.frontPrint.isDecal}
+                  bPrint={el.backPrint.isDecal}
                 />
               ))}
 

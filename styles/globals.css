@@ -13,7 +13,7 @@ body{
   padding: 0;
   margin: 0;
   font-family: 'Work Sans', sans-serif;
-  
+  overflow: hidden;
 }
 a {
   color: inherit;
@@ -39,19 +39,19 @@ button{
 }
 .custom_container{
   display: flex;
-  width: 50vw;
-  background-color:#E4E7EB;
+  width: 30vw;
+ 
   position: absolute;
   right: 0;
   height: 100vh;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   /* font-family:'Raleway', sans-serif; ; */
 }
 .customizer{
   width:38rem ;
   min-height: fit-content;
-  height: 80%;
+  height:calc(100vh - 3.5rem);
   background-color: white;
   border-radius: 0.5rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -59,6 +59,7 @@ button{
   display: flex;
   flex-direction: column;
   position: relative;
+  margin-top: 3.5rem;
 }
 .model_picker{
   width: 100%;
@@ -434,7 +435,8 @@ label{
 .background{
   height: 100vh;
   width: 100vw;
-  background-color: #E4E7EB;
+  background-color: white;
+  /* background-color: #E4E7EB; */
 }
 .center_container_log{
   display: flex;
@@ -601,6 +603,23 @@ padding: 1rem;
     bottom: 15rem;
     left: 4rem;
     color: white;
+}
+.landing_main_btn{
+  position: absolute;
+  bottom: 5rem;
+  left: 4rem;
+  height: 3rem;
+  width: 20rem;
+  color: white;
+  background-color: #00897B;
+  border-radius: 40px;
+  font-size: 1rem;
+}
+.landing_logo_main{
+  position: absolute;
+  right: 4rem;
+  bottom:10rem;
+  height:650px
 }
 #redirect_link a{
   color:#319795
