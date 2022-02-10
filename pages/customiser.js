@@ -12,31 +12,51 @@ import { useEffect } from "react";
 import Redirect from "../components/notLogged";
 import Link from "next/link";
 import { GiJetFighter } from "react-icons/gi";
+import { useRouter } from "next/router";
 
 export default function Home() {
   let [isLogged, setIsLogged] = useState(true);
+  console.log(isLogged,"WWWWWWWWW")
+  let router= useRouter()
 
-  useEffect(async () => {
+  useEffect(() => {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
     
+    console.log("START EFFECT")
+    // fetch("http://localhost:880/getuser", {
+    //   method: "GET",
+    //   headers: {
+    //     Authtoken: token,
+    //   },
+    // })
+    //   .then((response) => {
+    //     if (response.status == 200) {
+    //       setIsLogged(true);
+    //     } else if (response.status != 200) {
+    //       setIsLogged(false);
+    //     }
+    //   })
+    //   .then((data) => {
+    //     console.log(data)
+    //   });
+  //  let request= async()=>{
+  //   let response= await fetch('http://localhost:880/getuser',{
+  //     method:'GET',
+  //     headers:{
+  //       Authtoken: token
+  //     }
+  //   })
+  //   if(response.status==200){
+  //     setIsLogged(true)
+  //   }else if(response.status!=200){
+  //     setIsLogged(false)
+  //   }
+  //   console.log("END EFFECT")
+  //  }
+  //  request()
+  }, [router.pathname]);
 
-    fetch("http://localhost:840/getuser", {
-      method: "GET",
-      headers: {
-        Authtoken: token,
-      },
-    })
-      .then((response) => {
-        if (response.status == 200) {
-          setIsLogged(true);
-        } else if (response.status != 200) {
-          setIsLogged(false);
-        }
-      })
-      .then((data) => {
-        console.log(data)
-      });
-  }, []);
+ 
 
   return (
     <Provider store={store}>

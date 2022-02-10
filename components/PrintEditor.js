@@ -20,7 +20,7 @@ const PrintEditor = (props) => {
         <Slider
           defaultValue={1}
           min={0.2}
-          max={5}
+          max={1.5}
           step={0.1}
           aria-label="Width"
           valueLabelDisplay="auto"

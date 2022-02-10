@@ -41,7 +41,7 @@ const Productcard=(props)=>{
                 <span> Front print: {props.item.frontPrint.isDecal? "Yes" : "No"}</span>
                 {props.item.frontPrint.isDecal?
                 <div>
-                    <span>Image: {<img src={`http://localhost:840/${props.item.id}-frontPrint.${props.item.frontFile.type=='image/png'?"png":'jpg'}`} style={{width:"22px" }}/>}</span>
+                    <span>Image: {<img src={`http://localhost:880/${props.item.id}-frontPrint.${props.item.frontFile.type=='image/png'?"png":'jpg'}`} style={{width:"22px" }}/>}</span>
                     <span>Position-X: {props.item.frontPrint.position_x}</span><br/>
                     <span>Position-y: {props.item.frontPrint.position_y}</span><br/>
                     <span>Size-x: {props.item.frontPrint.size_x}</span><br/>
@@ -51,7 +51,7 @@ const Productcard=(props)=>{
                     <span> Back print : {props.item.backPrint.isDecal? "Yes" : "No"}</span>
                 {props.item.backPrint.isDecal?
                 <div>
-                    <span>Image: {<img src={`http://localhost:840/${props.item.id}-backPrint.${props.item.backFile.type=='image/png'?"png":'jpg'}`} style={{width:"22px" }}/>}</span><br/>
+                    <span>Image: {<img src={`http://localhost:880/${props.item.id}-backPrint.${props.item.backFile.type=='image/png'?"png":'jpg'}`} style={{width:"22px" }}/>}</span><br/>
                     <span>Position-X: {props.item.backPrint.position_x}</span><br/>
                     <span>Position-y: {props.item.backPrint.position_y}</span><br/>
                     <span>Size-x: {props.item.backPrint.size_x}</span><br/>
@@ -61,8 +61,8 @@ const Productcard=(props)=>{
             </div>
             <button onClick={()=>{
                 dispatch(itemsPreviewActions.setActiveItem(props.item))
-                dispatch(itemsPreviewActions.setFrontImage(`http://localhost:840/${props.item.id}-frontPrint.${props.item.frontFile.type=='image/png'?"png":'jpg'}`))
-                dispatch(itemsPreviewActions.setBackImage(`http://localhost:840/${props.item.id}-backPrint.${props.item.backFile.type=='image/png'?"png":'jpg'}`))
+                dispatch(itemsPreviewActions.setFrontImage(`http://localhost:880/${props.item.id}-frontPrint.${props.item.frontFile.type=='image/png'?"png":'jpg'}`))
+                dispatch(itemsPreviewActions.setBackImage(`http://localhost:880/${props.item.id}-backPrint.${props.item.backFile.type=='image/png'?"png":'jpg'}`))
                 Router.push('/productPreview')
             }}>
                 View 3D Item

@@ -18,7 +18,7 @@ const checkout = () => {
     data.append("frontPrint", frontFile);
     data.append("backPrint", backFile);
 
-    let response = await fetch("http://localhost:840/uploadPrint", {
+    let response = await fetch("http://localhost:880/uploadPrint", {
       method: "POST",
       headers: {
         artId: id,
@@ -30,7 +30,7 @@ const checkout = () => {
 
   const order = async () => {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
-    let response = await fetch("http://localhost:840/order", {
+    let response = await fetch("http://localhost:880/order", {
       method: "POST",
       headers: {
         Authtoken: token,
@@ -51,7 +51,7 @@ const checkout = () => {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
 
     console.log("before fetch");
-    fetch("http://localhost:840/getuser", {
+    fetch("http://localhost:880/getuser", {
       method: "GET",
       headers: {
         Authtoken: token,

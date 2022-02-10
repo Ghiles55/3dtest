@@ -4,7 +4,7 @@ const DeleteCard= (props)=>{
     console.log(props.type, props.items)
     const deleteRequest=async()=>{
         let token= JSON.parse(localStorage.getItem("ADMIN_TOKEN"))
-        let response= await fetch("http://localhost:840/deleteItems",{
+        let response= await fetch("http://localhost:880/deleteItems",{
             method:'DELETE',
             headers:{
                 Authtoken:token,

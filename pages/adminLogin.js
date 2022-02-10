@@ -12,7 +12,7 @@ const adminLogin = () => {
   let [userName, setUserName] = useState("");
   let [passWord, setPassWord] = useState("");
   async function login() {
-    let response = await fetch("http://localhost:840/adminLogin", {
+    let response = await fetch("http://localhost:880/adminLogin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
