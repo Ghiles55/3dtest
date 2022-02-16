@@ -5,12 +5,15 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Alert from "@mui/material/Alert";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import  DarkModeToggle from '../components/darkModeToggle'
 
 const adminLogin = () => {
   let [loginfailed, setLoginfailed] = useState(false);
   let router = useRouter();
   let [userName, setUserName] = useState("");
   let [passWord, setPassWord] = useState("");
+  let darkMode= useSelector((state)=> state.globalReducer.darkMode)
   async function login() {
     let response = await fetch("http://localhost:880/adminLogin", {
       method: "POST",
@@ -31,10 +34,44 @@ const adminLogin = () => {
       setLoginfailed(true);
     }
   }
+
+  const containerVariants={
+    initial:{
+      x:'50vw',
+      opacity:0
+    },
+    fadeIn:{
+      x:0,
+      opacity:1,
+      transition:{
+        type:'spring',
+        damping:18,
+        duration:0.2,
+        when:'beforeChildren'
+      }
+    },
+    exit:{
+      x:"-100vw",
+      opacity:0,
+      transition:{
+        duration:0.3
+      }
+    }
+   }
+  
+
   return (
     <>
-      <div className="center_container">
-        <div
+      <motion.div className={`center_container_log ${darkMode?'dark_dark':""}`} variants={containerVariants} initial='initial' animate="fadeIn" exit="exit">
+      <motion.div
+        style={{position:'absolute', top:"2rem", right:'2rem' }}
+        >
+          <DarkModeToggle/>
+        </motion.div>
+        <motion.div
+          initial={{x:'20rem', y:10, opacity:0 }}
+          animate={{ y:0, opacity:1 }}
+          transition={{ delay:0.5}}
           style={{
             position: "absolute",
             width: "40rem",
@@ -58,14 +95,15 @@ const adminLogin = () => {
           >
             Administrator Login
           </span>
-        </div>
-        <div className="login_card">
+        </motion.div>
+        <motion.div className={`login_card ${darkMode?'dark_light':""}`}>
           <form id="login_form" style={{ width: "100%" }}>
             <div>
               <Input
                 label="Username"
                 id="username"
                 type="text"
+                dark={darkMode}
                 onChange={(e) => setUserName(e.target.value)}
               />
             </div>
@@ -73,6 +111,7 @@ const adminLogin = () => {
               label="Password"
               id="Password"
               type="Password"
+              dark={darkMode}
               onChange={(e) => setPassWord(e.target.value)}
             />
             <button
@@ -90,8 +129,8 @@ const adminLogin = () => {
               </Alert>
             ) : null}
           </form>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </>
   );
 };

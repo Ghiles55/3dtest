@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Cart = () => {
   let cartState = useSelector((state) => state.cartReducer);
+  let darkMode= useSelector((state)=> state.globalReducer.darkMode)
   let dispatch = useDispatch();
   console.log(cartState.cartItems)
   let router = useRouter();
@@ -56,7 +57,7 @@ const Cart = () => {
       <AnimatePresence>
         {cartState.showCart && (
           <motion.div
-            className="cart"
+            className={`cart  ${darkMode? "dark_light": ""}`}
             variants={cartVariants}
             initial="initial"
             animate="fadeIn"
@@ -82,6 +83,7 @@ const Cart = () => {
                   id={el.id}
                   fPrint={el.frontPrint.isDecal}
                   bPrint={el.backPrint.isDecal}
+                  dark={darkMode}
                 />
               ))}
 
@@ -96,9 +98,9 @@ const Cart = () => {
               <span>Your Total is: </span>
               <p style={{ fontSize: "2.5rem" }}>
                 {" "}
-                {parseFloat(
-                  cartState.cartItems.reduce((a, b) => a + b.price, 0)
-                ).toFixed(2)}
+                {
+                  cartState.cartItems.reduce((a, b) => a + Number(b.price), 0)
+                }
               </p>
             </div>
             <motion.button

@@ -1,9 +1,10 @@
 import { height } from "@mui/system"
 import { Divider } from "@mui/material"
+import { motion } from "framer-motion"
 
 const CheckoutItem=(props)=>{
     return(
-        <div style={{
+        <motion.div style={{
             display:'flex',
             flexDirection:'row',
             width:"100%",
@@ -11,7 +12,11 @@ const CheckoutItem=(props)=>{
             padding:'1rem',
            justifyContent:'space-around',
            alignItems:'center'
-        }}>
+        }}
+        initial={{ y:-10, opacity:0}}
+        animate={{ y:0, opacity:1}}
+        transition={{ delay:1}}
+        >
 
         <div style={{
             width:'15%',
@@ -44,7 +49,7 @@ const CheckoutItem=(props)=>{
         </div>
         <Divider orientation="vertical" flexItem/>
             <span>Price: {props.price}</span>
-        </div>
+        </motion.div>
     )
 }
 

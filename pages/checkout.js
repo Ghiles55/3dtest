@@ -5,14 +5,19 @@ import CheckoutItem from "../components/checkoutItem";
 import Divider from "@mui/material/Divider";
 import Header from "../components/header";
 import { display, width } from "@mui/system";
+import Input from '../components/input'
+import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router"
+
+
 
 const checkout = () => {
   let [user, setUser] = useState("");
 
   let cartState = useSelector((state) => state.cartReducer);
-
+  let darkMode= useSelector((state)=> state.globalReducer.darkMode)
   console.log(user, cartState);
-
+  let router= useRouter()
   const uploadImages = async (id, backFile, frontFile) => {
     let data = new FormData();
     data.append("frontPrint", frontFile);
@@ -42,6 +47,9 @@ const checkout = () => {
     });
     let data = await response.json();
     console.log(response.status, data);
+    if(response.status==200){
+      router.push("/orderConfirmed")
+    }
     cartState.cartItems.map((el) =>
       uploadImages(el.id, el.backFile.file, el.frontFile.file)
     );
@@ -61,6 +69,84 @@ const checkout = () => {
       .then((data) => setUser(data));
     console.log("after fetch");
   }, []);
+
+  const containerVariants={
+    initial:{
+      x:'50vw',
+      opacity:0
+    },
+    fadeIn:{
+      x:0,
+      opacity:1,
+      transition:{
+        type:'spring',
+        damping:18,
+        duration:0.2,
+        when: "beforeChildren"
+      }
+    },
+    exit:{
+      x:"-100vw",
+      opacity:0,
+      transition:{
+        duration:0.3
+      }
+    }
+   }
+    let userCardVariants={
+      initial:{
+        x:'-50vw',
+        opacity:0
+      },
+      fadeIn:{
+        x:0,
+        opacity:1,
+        transition:{
+          type:'spring',
+          damping:18,
+          duration:0.2,
+        }
+      }
+    }
+  
+    let summaryVariants={
+      initial:{
+        x:'50vw',
+        opacity:0
+      },
+      fadeIn:{
+        x:0,
+        opacity:1,
+        transition:{
+          type:'spring',
+          damping:18,
+          duration:0.2,
+          when:'beforeChildren'
+        }
+      }
+    }
+  
+    let buttonVariants={
+      initial:{
+        y:"20rem",
+        opacity:0
+      },
+      fadeIn:{
+        y:0,
+        opacity:1,
+        transition:{
+          delay:1.2
+        }
+      },
+      whileTap:{
+        scale:0.95
+      },
+      whileHover:{
+        scale:1.03
+      }
+    }
+    
+
 
   return (
     <>
@@ -174,7 +260,7 @@ const checkout = () => {
     </div>
        */}
 
-      <div className="checkout_main_container">
+      <motion.div variants={containerVariants} initial='initial' animate='fadeIn' exit='exit' className={`checkout_main_container ${darkMode?"dark_dark":""}`}>
         {/* <p style={{
         fontSize:"2rem",
         fontWeight:'600',
@@ -188,7 +274,7 @@ const checkout = () => {
             justifyContent: "space-between",
           }}
         >
-          <div className="checkout_user_card">
+          <motion.div variants={userCardVariants} className={`checkout_user_card ${darkMode? "dark_light":""}`}>
             <p className="header_text_s">Your Personnal Informations</p>
             <div
               style={{
@@ -231,12 +317,45 @@ const checkout = () => {
                 <p className="body_text_b">{user.address}</p>
               </div>
             </div>
-          </div>
-          <div className="checkout_payment_card"></div>
+          </motion.div>
+          <motion.div variants={userCardVariants} className={`checkout_payment_card ${darkMode? "dark_light":''}`}>
+            <p className="header_text_s">Payment Details</p>
+                <div style={{ marginTop:'2rem', display:'flex', flexDirection:'column', justifyContent:'space-around', height:"60%"} }>
+                <div>
+                  {/* <p> Credit card number</p> */}
+                  <Input
+                  label='Credit card number'
+                  type='tel'
+                  maxlength="19"
+                  placeholder="xxxx xxxx xxxx xxxx"
+                  pattern="[0-9\s]{13,19}"
+                  dark={darkMode}
+                  />
+                </div>
+                <div style={{ display:'flex' , alignItems:'center', width:'50%', justifyContent:'space-between'}}>
+                  <Input 
+                  label='CVV'
+                  type='tel'
+                  placeholder='•  •  •'
+                  style={{ width: '8rem'}}
+                  dark={darkMode}
+                  />
+                </div>
+                <div style={{ display:'flex' , alignItems:'center', width:'50%', justifyContent:'space-between'}}>
+                  <Input 
+                  label='Expiration Date'
+                  type='month'
+                  style={{ width: '8rem'}}
+                  dark={darkMode}
+                  />
+                </div>
+                </div>
+
+          </motion.div>
         </div>
-        <div className="order_summary_card">
+        <motion.div variants={summaryVariants} className={`order_summary_card ${darkMode? 'dark_light': ""}`}>
           <p className="header_text_s">Order Summary</p>
-          <div style={{ marginTop: "2rem", height: "70%", overflowY: "auto" }}>
+          <motion.div style={{ marginTop: "2rem", height: "70%", overflowY: "auto" }}>
             {cartState.cartItems.map((el) => (
               <CheckoutItem
                 model={el.model}
@@ -255,7 +374,7 @@ const checkout = () => {
               frontP={true}
               backP={true}
             /> */}
-          </div>
+          </motion.div>
           <Divider flexItem />
           <div
             style={{
@@ -273,10 +392,20 @@ const checkout = () => {
               Your Total :{" "}
             </p>
             <p style={{ fontSize: "1.5rem", fontWeight: "800" }}>
-              {cartState.cartItems.reduce((a, b) => a + b.price, 0) || 0}
+              {cartState.cartItems.reduce((a, b) => a + Number(b.price), 0) || 0}
             </p>
           </div>
-          <button
+          <motion.button
+            // initial={{ y:"20rem", opacity:0}}
+            // animate={{ y:0, opacity:1}}
+            
+            // whileHover={{ scale:1.05}}
+            // whileTap={{ scale:0.95}}
+            variants={buttonVariants}
+            initial='initial'
+            animate='fadeIn'
+            whileHover='whileHover'
+            whileTap='whileTap'
             style={{
               marginTop:'2rem',
               width:'100%',
@@ -286,13 +415,14 @@ const checkout = () => {
               backgroundColor: "#0B0A0C",
               borderRadius: "0.375rem",
               height: "3.5rem",
+              borderRadius:'40px'
             }}
             onClick={order}
           >
             Confirm Order
-          </button>
-        </div>
-      </div>
+          </motion.button>
+        </motion.div>
+      </motion.div>
     </>
   );
 };

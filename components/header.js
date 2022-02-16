@@ -16,6 +16,7 @@ const Header = (props) => {
     console.log(darkMode)
     let cartState= useSelector((state)=>state.cartReducer)
     let dispatch= useDispatch()
+    let accentColor=darkMode?'#383f45':"#cbd2d9"
     let router= useRouter()
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
       width: 62,
@@ -66,15 +67,15 @@ const Header = (props) => {
     
     console.log(router.route)
   return (
-    <div className="header">
+    <div className={`header ${darkMode? "dark_light": ""}`}>
       <div className="logoContainer">
         <img src="/FF_logo.png"/>
         <span>Brand name</span>
       </div>
       <div className="headerSteps">
        <motion.div className="headerStep"><Link href='/'>Home</Link></motion.div>
-       <motion.div animate={router.pathname=='/customiser'? {backgroundColor: '#cbd2d9', borderBottom:'4px solid #00897B'} : null } className="headerStep"> <Link href='/customiser'> Customizer </Link></motion.div>
-       <motion.div animate={router.pathname=='/checkout'? {backgroundColor: '#cbd2d9', borderBottom:'4px solid #00897B'} : null } className="headerStep"> <Link href='/checkout'> Checkout</Link></motion.div>
+       <motion.div animate={router.pathname=='/customiser'? {backgroundColor: accentColor, borderBottom:'4px solid #00897B'} : null } className="headerStep"> <Link href='/customiser'> Customizer </Link></motion.div>
+       <motion.div animate={router.pathname=='/checkout'? {backgroundColor: accentColor, borderBottom:'4px solid #00897B'} : null } className="headerStep"> <Link href='/checkout'> Checkout</Link></motion.div>
       </div>
       <div className="headerActions">
             <MaterialUISwitch onChange={ (e)=> dispatch(globalActions.darkModeToggle(e.target.checked))}/>
@@ -102,7 +103,7 @@ const Header = (props) => {
             onClick={e=> dispatch(cartActions.toggleCart(true))}
             >
               <Badge badgeContent={cartState.cartItems.length} color="primary">
-              <BsFillCartFill />
+              <BsFillCartFill style={ darkMode? {color :"#00897B"}:""} />
               </Badge>
             </motion.button>
           

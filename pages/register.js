@@ -1,4 +1,4 @@
-import { Formik, useFormik } from "formik";
+import { Formik } from "formik";
 
 import { motion, AnimatePresence } from "framer-motion";
 import Input from "../components/input";
@@ -8,14 +8,16 @@ import { useState } from "react";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from "@mui/material/Alert";
 import Link from "next/link";
-import { transition } from "@chakra-ui/react";
 import { v4 as uuidv4 } from 'uuid'
 // let MotionInput = motion(Input);
+import  DarkModeToggle from '../components/darkModeToggle'
+import { useSelector } from "react-redux";
 
 let RegisterForm = () => {
   let router = useRouter();
   let [status, setStatus] = useState("");
-  
+  let darkMode= useSelector((state)=> state.globalReducer.darkMode)
+
   const validate = (values) => {
     let errors = {};
     if (
@@ -137,7 +139,12 @@ exit:{
   }
   return (
     <motion.div className="background"  variants={containerVariants} initial='initial' animate='fadeIn' exit="exit">
-    <div className="center_container"  >
+   <motion.div
+        style={{position:'absolute', top:"2rem", right:'2rem', zIndex:10 }}
+        >
+          <DarkModeToggle/>
+        </motion.div>
+    <div className={`center_container ${darkMode? "dark_dark": ""}`}  >
       {/* <div
         style={{
           position: "absolute",
@@ -164,10 +171,10 @@ exit:{
         </span>
         <span> First, tell us a bit about you</span>
       </div> */}
-      <div className="register_side_banner">
+      <div className={`register_side_banner ${darkMode? "dark_secondary":''}`}>
         <img style={{ height:"100%", width:'90%'}} src='/undraw_2.svg'/>
       </div>
-      <motion.div className="register_card" variants={cardVariants} >
+      <motion.div className={`register_card ${darkMode? "dark_dark": ""}`} variants={cardVariants} >
         <div style={ {display:'flex', flexDirection:'column', width:'100%', height:"80%"}}>
         <p style={{fontSize: '3rem', fontWeight: 600, fontFamily:'Raleway' }}>Sign Up !</p>
         <p style={{ marginTop:'0.5rem', marginLeft:'0.5rem'}}> First tell us a bit about yourself</p>
@@ -205,6 +212,7 @@ exit:{
                     type="text"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    dark={darkMode}
                   />
                   {/* <div>{formik.errors.firstName?formik.errors.firstName:null}</div> */}
                   {formik.errors.firstName && formik.touched.firstName ? (
@@ -217,6 +225,7 @@ exit:{
                     type="text"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    dark={darkMode}
                   />
                   {formik.errors.email && formik.touched.email ? (
                     <motion.div variants={errorsVariants} initial='initial' animate='animate' exit='exit' className="form_error">{formik.errors.email}</motion.div>
@@ -228,6 +237,7 @@ exit:{
                       type="text"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
+                      dark={darkMode}
                     />
                     {formik.errors.Address && formik.touched.Address ? (
                       <div className="form_error">{formik.errors.Address}</div>
@@ -238,6 +248,7 @@ exit:{
                       name="region"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
+                      className={`${darkMode? "dark_lighter": ""}`}
                     >
                       <option value="" disabled selected hidden>
                         Region
@@ -256,6 +267,7 @@ exit:{
                     type="text"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    dark={darkMode}
                   />
                   {formik.errors.lastName && formik.touched.lastName ? (
                     <div className="form_error"> {formik.errors.lastName}</div>
@@ -266,6 +278,7 @@ exit:{
                     type="Password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    dark={darkMode}
                   />
                   {formik.errors.Password && formik.touched.Password ? (
                     <div className="form_error">{formik.errors.Password}</div>
@@ -276,6 +289,7 @@ exit:{
                     type="text"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    dark={darkMode}
                   />
                   {formik.errors.PhoneNumber && formik.touched.PhoneNumber ? (
                     <div className="form_error">
@@ -284,7 +298,7 @@ exit:{
                   ) : null}
                 </div>
               </div>
-              <button type="submit" className="login_btn" style={{ width:'20rem'}}>
+              <button type="submit" className={`login_btn ${darkMode? "dark_secondary": ""}`} style={{ width:'20rem'}}>
                 Create an account
               </button>
               <p className="login_bottom_action">

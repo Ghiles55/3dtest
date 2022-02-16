@@ -19,9 +19,11 @@ let Customizer = () => {
   let frontPrintState = useSelector((state) => state.fontImageReducer);
   let modelState= useSelector((state)=>state.modelReducer)
   let backPrintState= useSelector((state)=>state.backImageReducer)
+  let darkMode= useSelector((state)=> state.globalReducer.darkMode)
   let [frontImageFile, setfrontImageFile]= useState({})
   let [backImageFile, setbackImageFile]= useState({})
   let cartState = useSelector((state) => state.cartReducer);
+  let accentColor=darkMode?'#383f45':'#CBD2D9'
   console.log(frontPrintState, frontDecalActions);
   let dispatch = useDispatch();
   let addToCart=(e)=>{
@@ -64,31 +66,31 @@ let Customizer = () => {
 
   return (
     <div className="custom_container">
-      <div className="customizer">
+      <div className={`customizer ${darkMode? "dark_light":""}`}>
         <div className="model_picker">
-          <motion.button animate={!modelState.model?{ backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeModel(false))}>
+          <motion.button animate={!modelState.model?{ backgroundColor:accentColor}:null} onClick={(e) => dispatch(modelActions.changeModel(false))}>
             T-shirt <FaTshirt />{" "}
           </motion.button>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <motion.button  animate={modelState.model?{ backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeModel(true))}>
+          <motion.button  animate={modelState.model?{ backgroundColor:accentColor}:null} onClick={(e) => dispatch(modelActions.changeModel(true))}>
             Hoodie <GiHoodie />{" "}
           </motion.button>
         </div>
         <Divider flexItem />
         <div className="size_picker">
-          <motion.button animate={ modelState.size=="S"?{backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeSize("S"))}>
+          <motion.button animate={ modelState.size=="S"?{backgroundColor:accentColor}:null} onClick={(e) => dispatch(modelActions.changeSize("S"))}>
             S
           </motion.button>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <motion.button animate={ modelState.size=="M"?{backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeSize("M"))}>
+          <motion.button animate={ modelState.size=="M"?{backgroundColor:accentColor}:null} onClick={(e) => dispatch(modelActions.changeSize("M"))}>
             M
           </motion.button>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <motion.button animate={ modelState.size=="L"?{backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeSize("L"))}>
+          <motion.button animate={ modelState.size=="L"?{backgroundColor:accentColor}:null} onClick={(e) => dispatch(modelActions.changeSize("L"))}>
             L
           </motion.button>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <motion.button animate={ modelState.size=="XL"?{backgroundColor:'#CBD2D9'}:null} onClick={(e) => dispatch(modelActions.changeSize("XL"))}>
+          <motion.button animate={ modelState.size=="XL"?{backgroundColor:accentColor}:null} onClick={(e) => dispatch(modelActions.changeSize("XL"))}>
             XL
           </motion.button>
         </div>

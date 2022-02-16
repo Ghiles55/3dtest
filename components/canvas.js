@@ -21,6 +21,7 @@ function Canva(props) {
   let frontDecalState = useSelector((state) => state.fontImageReducer);
   let modelState = useSelector((state) => state.modelReducer);
   let backDecalState = useSelector((state) => state.backImageReducer);
+  let darkMode= useSelector((state)=> state.globalReducer.darkMode)
   let dispatch = useDispatch();
 
   console.log(frontDecalState, backDecalState);
@@ -57,7 +58,7 @@ function Canva(props) {
               position={[0, 2, 0]}
               intensity={0.2}
             />
-            <color attach={"background"} args={["#CBD5E0"]} />
+            <color attach={"background"} args={[`${darkMode?"#121212": "#CBD5E0"}`]} />
 
             <Suspense fallback={null}>
               {/* {model && (
@@ -105,35 +106,6 @@ function Canva(props) {
           </Provider>
         </Canvas>
       </div>
-      <button onClick={(e) => setDisplay(!display)}>decal</button>
-      <button
-        onClick={(e) => {
-          setModel(!model);
-          setTest(!test);
-        }}
-      >
-        model
-      </button>
-      <button
-        onClick={(e) => {
-          console.log(JSON.stringify(scene.toJSON()));
-        }}
-      >
-        Save
-      </button>
-      <input
-        type="file"
-        id="filepicker"
-        accept=".png,.jpg,.jpeg"
-        ref={fileInput}
-        onChange={(e) => {
-          let file = fileInput.current.files[0];
-          let filePath = URL.createObjectURL(file);
-          dispatch(frontDecalActions.changeImage(filePath));
-          console.log("WWWWWWWWWW", test);
-          if (filePath) setFiles(filePath);
-        }}
-      />
     </>
   );
 }
