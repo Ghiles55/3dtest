@@ -5,6 +5,10 @@ import { AnimatePresence } from "framer-motion";
 import  LoadingScreen  from "../components/loadingScreen";
 import { useState } from "react";
 import { useEffect } from "react";
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
+
+let persistor = persistStore(store);
 
 function MyApp({ Component, pageProps, router }) {
   const [loading, setLoading] = useState(false);
@@ -29,10 +33,13 @@ function MyApp({ Component, pageProps, router }) {
   console.log(router.pathname)
   return (
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <AnimatePresence>
         <LoadingScreen loading={loading} />
         <Component {...pageProps} key={router.route} />
       </AnimatePresence>
+      </PersistGate>
+
     </Provider>
   );
 }
