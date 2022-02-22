@@ -5,25 +5,24 @@ import CheckoutItem from "../components/checkoutItem";
 import Divider from "@mui/material/Divider";
 import Header from "../components/header";
 import { display, width } from "@mui/system";
-import Input from '../components/input'
+import Input from "../components/input";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/router"
-
-
+import { useRouter } from "next/router";
 
 const checkout = () => {
   let [user, setUser] = useState("");
 
   let cartState = useSelector((state) => state.cartReducer);
-  let darkMode= useSelector((state)=> state.globalReducer.darkMode)
+  let darkMode = useSelector((state) => state.globalReducer.darkMode);
   console.log(user, cartState);
-  let router= useRouter()
+  let router = useRouter();
+  let backgroundColor=darkMode?'#121212':'#E4E7EB'
   const uploadImages = async (id, backFile, frontFile) => {
     let data = new FormData();
     data.append("frontPrint", frontFile);
     data.append("backPrint", backFile);
 
-    let response = await fetch("http://localhost:880/uploadPrint", {
+    let response = await fetch("http://localhost:920/uploadPrint", {
       method: "POST",
       headers: {
         artId: id,
@@ -35,31 +34,35 @@ const checkout = () => {
 
   const order = async () => {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
-    let response = await fetch("http://localhost:880/order", {
-      method: "POST",
-      headers: {
-        Authtoken: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        items: cartState.cartItems,
-      }),
-    });
-    let data = await response.json();
-    console.log(response.status, data);
-    if(response.status==200){
-      router.push("/orderConfirmed")
+    try {
+      let response = await fetch("http://localhost:920/order", {
+        method: "POST",
+        headers: {
+          Authtoken: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: cartState.cartItems,
+        }),
+      });
+      let data = await response.json();
+      console.log(response.status, data);
+      if (response.status == 200) {
+        router.push("/orderConfirmed");
+      }
+      cartState.cartItems.map((el) =>
+        uploadImages(el.id, el.backFile.file, el.frontFile.file)
+      );
+    } catch (e) {
+      console.log(e);
     }
-    cartState.cartItems.map((el) =>
-      uploadImages(el.id, el.backFile.file, el.frontFile.file)
-    );
   };
 
   useEffect(() => {
-    let token = JSON.parse(localStorage.getItem("TOKEN"));
+  let token = JSON.parse(localStorage.getItem("TOKEN"));
 
     console.log("before fetch");
-    fetch("http://localhost:880/getuser", {
+    fetch("http://localhost:920/getuser", {
       method: "GET",
       headers: {
         Authtoken: token,
@@ -70,83 +73,81 @@ const checkout = () => {
     console.log("after fetch");
   }, []);
 
-  const containerVariants={
-    initial:{
-      x:'50vw',
-      opacity:0
+  const containerVariants = {
+    initial: {
+      x: "50vw",
+      opacity: 0,
     },
-    fadeIn:{
-      x:0,
-      opacity:1,
-      transition:{
-        type:'spring',
-        damping:18,
-        duration:0.2,
-        when: "beforeChildren"
-      }
+    fadeIn: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        damping: 18,
+        duration: 0.2,
+        when: "beforeChildren",
+      },
     },
-    exit:{
-      x:"-100vw",
-      opacity:0,
-      transition:{
-        duration:0.3
-      }
-    }
-   }
-    let userCardVariants={
-      initial:{
-        x:'-50vw',
-        opacity:0
+    exit: {
+      x: "-100vw",
+      opacity: 0,
+      transition: {
+        duration: 0.3,
       },
-      fadeIn:{
-        x:0,
-        opacity:1,
-        transition:{
-          type:'spring',
-          damping:18,
-          duration:0.2,
-        }
-      }
-    }
-  
-    let summaryVariants={
-      initial:{
-        x:'50vw',
-        opacity:0
+    },
+  };
+  let userCardVariants = {
+    initial: {
+      x: "-50vw",
+      opacity: 0,
+    },
+    fadeIn: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        damping: 18,
+        duration: 0.2,
       },
-      fadeIn:{
-        x:0,
-        opacity:1,
-        transition:{
-          type:'spring',
-          damping:18,
-          duration:0.2,
-          when:'beforeChildren'
-        }
-      }
-    }
-  
-    let buttonVariants={
-      initial:{
-        y:"20rem",
-        opacity:0
-      },
-      fadeIn:{
-        y:0,
-        opacity:1,
-        transition:{
-          delay:1.2
-        }
-      },
-      whileTap:{
-        scale:0.95
-      },
-      whileHover:{
-        scale:1.03
-      }
-    }
-    
+    },
+  };
 
+  let summaryVariants = {
+    initial: {
+      x: "50vw",
+      opacity: 0,
+    },
+    fadeIn: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        damping: 18,
+        duration: 0.2,
+        when: "beforeChildren",
+      },
+    },
+  };
+
+  let buttonVariants = {
+    initial: {
+      y: "20rem",
+      opacity: 0,
+    },
+    fadeIn: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: 1.2,
+      },
+    },
+    whileTap: {
+      scale: 0.95,
+    },
+    whileHover: {
+      scale: 1.03,
+    },
+  };
 
   return (
     <>
@@ -259,8 +260,15 @@ const checkout = () => {
       </button>
     </div>
        */}
+    <div  style={{ height:'100vh', width:'100vw', backgroundColor:backgroundColor}}>
 
-      <motion.div variants={containerVariants} initial='initial' animate='fadeIn' exit='exit' className={`checkout_main_container ${darkMode?"dark_dark":""}`}>
+      <motion.div
+        variants={containerVariants}
+        initial="initial"
+        animate="fadeIn"
+        exit="exit"
+        className={`checkout_main_container ${darkMode ? "dark_dark" : ""}`}
+      >
         {/* <p style={{
         fontSize:"2rem",
         fontWeight:'600',
@@ -274,7 +282,10 @@ const checkout = () => {
             justifyContent: "space-between",
           }}
         >
-          <motion.div variants={userCardVariants} className={`checkout_user_card ${darkMode? "dark_light":""}`}>
+          <motion.div
+            variants={userCardVariants}
+            className={`checkout_user_card ${darkMode ? "dark_light" : ""}`}
+          >
             <p className="header_text_s">Your Personnal Informations</p>
             <div
               style={{
@@ -318,44 +329,73 @@ const checkout = () => {
               </div>
             </div>
           </motion.div>
-          <motion.div variants={userCardVariants} className={`checkout_payment_card ${darkMode? "dark_light":''}`}>
+          <motion.div
+            variants={userCardVariants}
+            className={`checkout_payment_card ${darkMode ? "dark_light" : ""}`}
+          >
             <p className="header_text_s">Payment Details</p>
-                <div style={{ marginTop:'2rem', display:'flex', flexDirection:'column', justifyContent:'space-around', height:"60%"} }>
-                <div>
-                  {/* <p> Credit card number</p> */}
-                  <Input
-                  label='Credit card number'
-                  type='tel'
+            <div
+              style={{
+                marginTop: "2rem",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                height: "60%",
+              }}
+            >
+              <div>
+                {/* <p> Credit card number</p> */}
+                <Input
+                  label="Credit card number"
+                  type="tel"
                   maxlength="19"
                   placeholder="xxxx xxxx xxxx xxxx"
                   pattern="[0-9\s]{13,19}"
                   dark={darkMode}
-                  />
-                </div>
-                <div style={{ display:'flex' , alignItems:'center', width:'50%', justifyContent:'space-between'}}>
-                  <Input 
-                  label='CVV'
-                  type='tel'
-                  placeholder='•  •  •'
-                  style={{ width: '8rem'}}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "50%",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Input
+                  label="CVV"
+                  type="tel"
+                  placeholder="•  •  •"
+                  style={{ width: "8rem" }}
                   dark={darkMode}
-                  />
-                </div>
-                <div style={{ display:'flex' , alignItems:'center', width:'50%', justifyContent:'space-between'}}>
-                  <Input 
-                  label='Expiration Date'
-                  type='month'
-                  style={{ width: '8rem'}}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "50%",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Input
+                  label="Expiration Date"
+                  type="month"
+                  style={{ width: "8rem" }}
                   dark={darkMode}
-                  />
-                </div>
-                </div>
-
+                />
+              </div>
+            </div>
           </motion.div>
         </div>
-        <motion.div variants={summaryVariants} className={`order_summary_card ${darkMode? 'dark_light': ""}`}>
+        <motion.div
+          variants={summaryVariants}
+          className={`order_summary_card ${darkMode ? "dark_light" : ""}`}
+        >
           <p className="header_text_s">Order Summary</p>
-          <motion.div style={{ marginTop: "2rem", height: "70%", overflowY: "auto" }}>
+          <motion.div
+            style={{ marginTop: "2rem", height: "70%", overflowY: "auto" }}
+          >
             {cartState.cartItems.map((el) => (
               <CheckoutItem
                 model={el.model}
@@ -392,30 +432,31 @@ const checkout = () => {
               Your Total :{" "}
             </p>
             <p style={{ fontSize: "1.5rem", fontWeight: "800" }}>
-              {cartState.cartItems.reduce((a, b) => a + Number(b.price), 0) || 0}
+              {cartState.cartItems.reduce((a, b) => a + Number(b.price), 0) ||
+                0}
             </p>
           </div>
           <motion.button
             // initial={{ y:"20rem", opacity:0}}
             // animate={{ y:0, opacity:1}}
-            
+
             // whileHover={{ scale:1.05}}
             // whileTap={{ scale:0.95}}
             variants={buttonVariants}
-            initial='initial'
-            animate='fadeIn'
-            whileHover='whileHover'
-            whileTap='whileTap'
+            initial="initial"
+            animate="fadeIn"
+            whileHover="whileHover"
+            whileTap="whileTap"
             style={{
-              marginTop:'2rem',
-              width:'100%',
-              color:"white",
-              fontSize:"1rem",
-              fontWeight:'600',
+              marginTop: "2rem",
+              width: "100%",
+              color: "white",
+              fontSize: "1rem",
+              fontWeight: "600",
               backgroundColor: "#0B0A0C",
               borderRadius: "0.375rem",
               height: "3.5rem",
-              borderRadius:'40px'
+              borderRadius: "40px",
             }}
             onClick={order}
           >
@@ -423,6 +464,7 @@ const checkout = () => {
           </motion.button>
         </motion.div>
       </motion.div>
+    </div>
     </>
   );
 };

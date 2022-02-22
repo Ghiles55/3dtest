@@ -8,13 +8,16 @@ import Alert from "@mui/material/Alert";
 import { useState } from "react";
 import  DarkModeToggle from '../components/darkModeToggle'
 import { useSelector, useDispatch } from "react-redux";
+import { globalActions } from "../store";
 
 
 
 const login = () => {
   let [loginfailed, setLoginfailed] = useState(false);
   let router = useRouter();
+  let dispatch= useDispatch()
   let darkMode= useSelector((state)=> state.globalReducer.darkMode)
+  let backgroundColor=darkMode?'#121212':'#E4E7EB'
   const validate = (values) => {
     let errors = {};
     if (
@@ -41,7 +44,7 @@ const login = () => {
     return errors;
   };
   async function loginRequest(values, actions) {
-    let response = await fetch("http://localhost:880/login", {
+    let response = await fetch("http://localhost:920/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,6 +57,7 @@ const login = () => {
     console.log(response.status);
     if (response.status == 200) {
       localStorage.setItem("TOKEN", JSON.stringify(data.token));
+      dispatch(globalActions.logIn())
       router.push("/customiser");
     } else if (response.status == 300) {
       setLoginfailed(true);
@@ -95,6 +99,8 @@ const login = () => {
   }
   return (
     <>
+    <div style={{ height:'100vh', width:'100vw', backgroundColor:backgroundColor}}>
+
       <motion.div className={`center_container_log ${darkMode?'dark_dark':""}`}  variants={containerVariants} initial='initial' animate="fadeIn" exit="exit">
         <motion.div
         style={{position:'absolute', top:"2rem", right:'2rem' }}
@@ -121,7 +127,7 @@ const login = () => {
         >
           <span
             style={{
-              fontFamily: "'Raleway', sans-serif;",
+              fontFamily: "Raleway, sans-serif",
               fontSize: "3rem",
               fontWeight: "900",
               marginBottom: "2rem",
@@ -194,6 +200,7 @@ const login = () => {
         </div>
         </motion.div>
       </motion.div>
+    </div>
     </>
   );
 };

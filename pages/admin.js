@@ -15,7 +15,7 @@ const adminLogin = () => {
   let [passWord, setPassWord] = useState("");
   let darkMode= useSelector((state)=> state.globalReducer.darkMode)
   async function login() {
-    let response = await fetch("http://localhost:880/adminLogin", {
+    let response = await fetch("http://localhost:920/adminLogin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

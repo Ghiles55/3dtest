@@ -559,7 +559,7 @@ padding: 1rem;
 }
 .admin_chart{
   width: 90vw;
-  height: 380;
+  height: 480px;
   margin-left: 2rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-top: 2rem;
@@ -649,6 +649,16 @@ padding: 1rem;
 }
 #redirect_link a{
   color:#319795
+}
+
+.product_details{
+  width: 40vw;
+  height: 100vw;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 1rem;
+}
+.invisible{
+  display: none;
 }
 .dark_dark{
   background-color: #121212;

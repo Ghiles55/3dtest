@@ -14,7 +14,7 @@ const orders = () => {
   let Router = useRouter();
   let getOrders = async () => {
     try {
-      let response = await fetch("http://localhost:880/getOrders", {
+      let response = await fetch("http://localhost:920/getOrders", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const orders = () => {
         second: "2-digit",
       }),
       products: `Number of products : ${el.products.length}`,
-      value: prices.reduce((a, b) => a + b, 0),
+      value: prices.reduce((a, b) => a +  Number(b), 0),
     };
   });
   console.log(newOrders);

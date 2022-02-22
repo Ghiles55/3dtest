@@ -17,7 +17,7 @@ let RegisterForm = () => {
   let router = useRouter();
   let [status, setStatus] = useState("");
   let darkMode= useSelector((state)=> state.globalReducer.darkMode)
-
+  let backgroundColor=darkMode?'#121212':'#E4E7EB'
   const validate = (values) => {
     let errors = {};
     if (
@@ -66,7 +66,7 @@ let RegisterForm = () => {
   };
   async function registerRequest(values, actions) {
     try {
-      let response = await fetch("http://localhost:880/register", {
+      let response = await fetch("http://localhost:920/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -138,6 +138,8 @@ exit:{
 }
   }
   return (
+    <div style={{ height:'100vh', width:'100vw', backgroundColor:backgroundColor}}>
+
     <motion.div className="background"  variants={containerVariants} initial='initial' animate='fadeIn' exit="exit">
    <motion.div
         style={{position:'absolute', top:"2rem", right:'2rem', zIndex:10 }}
@@ -318,6 +320,7 @@ exit:{
       </motion.div>
     </div>
     </motion.div>
+    </div>
   );
 };
 

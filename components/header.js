@@ -94,6 +94,7 @@ const Header = (props) => {
             whileTap={{ scale:0.9}}
             onClick={ ()=>{
               localStorage.removeItem('TOKEN')
+              dispatch(globalActions.logOut())
               router.push("/login")
             }}
             >Log Out</motion.button>
