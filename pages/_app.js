@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
+import Head from 'next/head'
 
 let persistor = persistStore(store);
 
@@ -36,6 +37,9 @@ function MyApp({ Component, pageProps, router }) {
       <PersistGate loading={null} persistor={persistor}>
       <AnimatePresence>
         <LoadingScreen loading={loading} />
+        <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+        </Head>
         <Component {...pageProps} key={router.route} />
       </AnimatePresence>
       </PersistGate>
