@@ -66,7 +66,7 @@ let RegisterForm = () => {
   };
   async function registerRequest(values, actions) {
     try {
-      let response = await fetch("http://localhost:920/register", {
+      let response = await fetch("http://localhost:950/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -147,32 +147,7 @@ exit:{
           <DarkModeToggle/>
         </motion.div>
     <div className={`center_container ${darkMode? "dark_dark": ""}`}  >
-      {/* <div
-        style={{
-          position: "absolute",
-          width: "40rem",
-          height: "8rem",
-          top: "2rem",
-          right: "50vw",
-          transform: "translateX(20rem)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "'Raleway', sans-serif;",
-            fontSize: "3rem",
-            fontWeight: "900",
-            marginBottom: "2rem",
-          }}
-        >
-          Create your account
-        </span>
-        <span> First, tell us a bit about you</span>
-      </div> */}
+     
       <div className={`register_side_banner ${darkMode? "dark_secondary":''}`}>
         <img style={{ height:"100%", width:'90%'}} src='/undraw_2.svg'/>
       </div>

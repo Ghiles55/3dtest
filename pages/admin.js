@@ -18,7 +18,7 @@ const adminLogin = () => {
   let dispatch= useDispatch()
   let darkMode= useSelector((state)=> state.globalReducer.darkMode)
   async function login() {
-    let response = await fetch("http://localhost:920/adminLogin", {
+    let response = await fetch("http://localhost:950/adminLogin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

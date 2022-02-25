@@ -20,7 +20,7 @@ export const admin = () => {
   console.log(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
 
   let userCountFetch = async (token) => {
-    let response = await fetch("http://localhost:920/userCount", {
+    let response = await fetch("http://localhost:950/userCount", {
       method: "GET",
       headers: {
         Authtoken: token,
@@ -32,7 +32,7 @@ export const admin = () => {
   };
 
   let orderNumberFetch = async (token) => {
-    let response = await fetch("http://localhost:920/getOrders", {
+    let response = await fetch("http://localhost:950/getOrders", {
       method: "GET",
       headers: {
         Authtoken: token,
@@ -44,7 +44,7 @@ export const admin = () => {
 
   let todayOrdersFetch = async (token) => {
     let response = await fetch(
-      `http://localhost:920/getOrders?day=${date.getFullYear()}-${
+      `http://localhost:950/getOrders?day=${date.getFullYear()}-${
         date.getMonth() + 1
       }-${date.getDate()}`,
       {
@@ -64,7 +64,7 @@ export const admin = () => {
   };
 
   let graphDataFetch = async (token, year) => {
-    let response = await fetch("http://localhost:920/getGraphData", {
+    let response = await fetch("http://localhost:950/getGraphData", {
       method: "GET",
       headers: {
         Authtoken: token,
@@ -80,7 +80,7 @@ export const admin = () => {
   };
 
   let usersGraphFetch= async(token,year)=>{
-    let response= await fetch('http://localhost:920/getUsersGraph', {
+    let response= await fetch('http://localhost:950/getUsersGraph', {
       method: "GET",
       headers: {
         Authtoken: token,

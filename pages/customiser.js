@@ -48,7 +48,7 @@ export default function Home() {
     let token = JSON.parse(localStorage.getItem("TOKEN"));
 
     console.log("START EFFECT", token);
-    // fetch("http://localhost:920/getuser", {
+    // fetch("http://localhost:950/getuser", {
     //   method: "GET",
     //   headers: {
     //     Authtoken: token,
@@ -65,7 +65,7 @@ export default function Home() {
     //     console.log(data)
     //   });
     //  let request= async()=>{
-    //   let response= await fetch('http://localhost:920/getuser',{
+    //   let response= await fetch('http://localhost:950/getuser',{
     //     method:'GET',
     //     headers:{
     //       Authtoken: token

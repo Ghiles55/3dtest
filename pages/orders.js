@@ -7,25 +7,25 @@ import { ordersActions } from "../store";
 import DeleteCard from "../components/deleteCard";
 
 
-const orders = () => {
+const Orders = () => {
   let [orders, setOrders] = useState([]);
   let [selected, setSelected] = useState([]);
   let dispatch= useDispatch()
   let Router = useRouter();
   let darkMode = useSelector((state) => state.globalReducer.darkMode);
   let gridStyle= darkMode ? { color: 'white'} : ''
-  let getOrders = async () => {
+  let getOrders = async (token) => {
     try {
-      let response = await fetch("http://localhost:920/getOrders", {
+      let response = await fetch("http://localhost:950/getOrders", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authtoken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJwYXNzIjoiYWRtaW4iLCJpYXQiOjE2NDI2MDA3MzF9.nf-ZD37D0oTUZT28TOXKhEzbPsSoSvWWKJj6jKBW13k",
+            token
         },
       });
       let data = await response.json();
-      console.log(data);
+      console.log(data, response.text);
       setOrders(data.orders);
       dispatch(ordersActions.setOrders(data.orders))
     } catch (e) {
@@ -33,7 +33,9 @@ const orders = () => {
     }
   };
   useEffect(() => {
-    getOrders();
+    let token = JSON.parse(localStorage.getItem("ADMIN_TOKEN"));
+    console.log(token)
+    getOrders(token);
     let interval1= setInterval(() => {
       getOrders();
     }, 10000);
@@ -119,4 +121,4 @@ const orders = () => {
   );
 };
 
-export default orders;
+export default Orders;

@@ -77,7 +77,7 @@ const Adminheader = () => {
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             localStorage.removeItem("ADMIN_TOKEN");
-            router.push("/adminLogin");
+            router.push("/admin");
             dispatch(globalActions.adminlogOut())
           }}
         >

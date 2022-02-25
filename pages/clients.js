@@ -7,12 +7,12 @@ const clients = () => {
   let [users, setUsers] = useState([]);
   let darkMode = useSelector((state) => state.globalReducer.darkMode);
   let gridStyle= darkMode ? { color: 'white'} : ''
-  let getUsers = async () => {
-    let response = await fetch("http://localhost:920/getuserlist", {
+  let getUsers = async (token) => {
+    let response = await fetch("http://localhost:950/getuserlist", {
       method: "GET",
       headers: {
         Authtoken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJwYXNzIjoiYWRtaW4iLCJpYXQiOjE2NDI2MDA3MzF9.nf-ZD37D0oTUZT28TOXKhEzbPsSoSvWWKJj6jKBW13k",
+        token
       },
     });
     let data = await response.json();
@@ -21,7 +21,8 @@ const clients = () => {
   };
 
   useEffect(() => {
-    getUsers();
+    let token = JSON.parse(localStorage.getItem("ADMIN_TOKEN"));
+    getUsers(token);
     setInterval(() => {
       getUsers();
     }, 10000);

@@ -12,14 +12,13 @@ const orderinfo = () => {
   // let order= useSelector((state)=> state.ordersReducer.activeOrder[0])
   let darkMode = useSelector((state) => state.globalReducer.darkMode);
 
-  let fetchRequest = async () => {
-    console.log("hello", document.history);
+  let fetchRequest = async (token) => {
+   
     try {
-      let response = await fetch("http://localhost:920/orderInfo", {
+      let response = await fetch("http://localhost:950/orderInfo", {
         method: "GET",
         headers: {
-          Authtoken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJwYXNzIjoiYWRtaW4iLCJpYXQiOjE2NDI2MDA3MzF9.nf-ZD37D0oTUZT28TOXKhEzbPsSoSvWWKJj6jKBW13k",
+          Authtoken:token,
           ID: router?.query?.id,
         },
       });
@@ -30,6 +29,7 @@ const orderinfo = () => {
     }
   };
   useEffect(async () => {
+    let token = JSON.parse(localStorage.getItem("ADMIN_TOKEN"));
     id = router?.query?.id;
     if (id) {
       fetchRequest();
