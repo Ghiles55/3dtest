@@ -45,9 +45,10 @@ const loadingScreen = (props) => {
         animate="fadeIn"
         exit="exit"
         style={{display:'flex',justifyContent:'center', alignItems:'center', height:"100%" }}
+
       >
           <CircularProgress size={150}/>
-          <p style={{ fontSize:"1.5rem", margin:'4rem' }}>Loading assets, please wait...</p>
+          <p style={{ fontSize:"1.5rem", margin:'4rem' }} className={darkMode? "dark_dark":""}>Loading assets, please wait...</p>
       </motion.div>
     </div>
   );

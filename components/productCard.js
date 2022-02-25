@@ -3,6 +3,7 @@ import { display } from "@mui/system";
 import { itemsPreviewActions } from "../store";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { DarkMode } from "@chakra-ui/react";
 
 
 const Productcard=(props)=>{
@@ -17,7 +18,9 @@ const Productcard=(props)=>{
             margin:"0.5rem",
             position:'relative',
             flexDirection:"column"
-        }}>
+        }}
+        className={props.dark? 'dark_light': ''}
+        >
             <div style={{
                 display:"flex",
                 padding:"0.5rem",

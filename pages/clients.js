@@ -1,9 +1,12 @@
 import Adminheader from "../components/adminHeader";
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
 
 const clients = () => {
   let [users, setUsers] = useState([]);
+  let darkMode = useSelector((state) => state.globalReducer.darkMode);
+  let gridStyle= darkMode ? { color: 'white'} : ''
   let getUsers = async () => {
     let response = await fetch("http://localhost:920/getuserlist", {
       method: "GET",
@@ -37,32 +40,38 @@ const clients = () => {
 
   return (
     <>
-    <Adminheader/>
       <div
-        style={{
-          width: "95vw",
-          height: "80vh",
-          marginTop: "5rem",
-          padding: "2rem",
-        }}
+        style={{ height: "100vw", width: "100vw", zIndex: "-5", position:'absolute', top:0 }}
+        className={`${darkMode ? "dark_dark" : ""}`}
       >
-        {users.length == 0 ? (
-          ""
-        ) : (
-          <DataGrid
-          onCellDoubleClick={(params, event) => {
-            if (!event.ctrlKey) {
-              event.defaultMuiPrevented = true;
-              console.log(params,event)
-            }
+        <Adminheader />
+        <div
+          style={{
+            width: "95vw",
+            height: "80vh",
+            marginTop: "5rem",
+            padding: "2rem",
           }}
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            rowsPerPageOptions={[10]}
-            // checkboxSelection
-          />
-        )}
+        >
+          {users.length == 0 ? (
+            ""
+          ) : (
+            <DataGrid
+              onCellDoubleClick={(params, event) => {
+                if (!event.ctrlKey) {
+                  event.defaultMuiPrevented = true;
+                  console.log(params, event);
+                }
+              }}
+              rows={rows}
+              columns={columns}
+              pageSize={10}
+              rowsPerPageOptions={[10]}
+              sx={ gridStyle}
+              // checkboxSelection
+            />
+          )}
+        </div>
       </div>
     </>
   );

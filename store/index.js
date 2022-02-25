@@ -32,6 +32,8 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
+  // whitelist:[ globalState , cartState]
+  blacklist:[ 'fontImageReducer', 'backImageReducer', 'modelReducer' ]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

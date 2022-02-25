@@ -69,7 +69,7 @@ const Header = (props) => {
   return (
     <div className={`header ${darkMode? "dark_light": ""}`}>
       <div className="logoContainer">
-        <img src="/FF_logo.png"/>
+        <img src="/F_logo.jpg"/>
         <span>Brand name</span>
       </div>
       <div className="headerSteps">

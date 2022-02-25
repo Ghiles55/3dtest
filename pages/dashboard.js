@@ -5,6 +5,7 @@ import Link from "next/link";
 import { padding } from "@mui/system";
 import { useEffect, useState } from "react";
 import Adminheader from "../components/adminHeader";
+import { useSelector } from "react-redux";
 
 export const admin = () => {
   let [userCount, setUserCount] = useState("");
@@ -13,6 +14,7 @@ export const admin = () => {
   let [monthValue, setmonthValue] = useState("");
   let [graphUsersData, setGraphUsersData] = useState([]);
   let [graphOrdersData, setGraphOrdersData] = useState([]);
+  let darkMode = useSelector((state) => state.globalReducer.darkMode);
   let date = new Date();
 
   console.log(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
@@ -76,6 +78,20 @@ export const admin = () => {
       setGraphUsersData(data.usersByMonth);
     }
   };
+
+  let usersGraphFetch= async(token,year)=>{
+    let response= await fetch('http://localhost:920/getUsersGraph', {
+      method: "GET",
+      headers: {
+        Authtoken: token,
+        year: year,
+      },
+    })
+    let data = await response.json();
+    console.log(data);
+  }
+
+
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("ADMIN_TOKEN"));
     let year = new Date().getFullYear();
@@ -83,12 +99,14 @@ export const admin = () => {
     userCountFetch(token);
     todayOrdersFetch(token);
     graphDataFetch(token, year);
+    usersGraphFetch(token, year)
+
   }, []);
 
   return (
     <>
       <Adminheader />
-      <div className="admin_main_container">
+      <div className={`admin_main_container ${darkMode ? "dark_dark": ""}`}>
         <div
           style={{
             display: "flex",
@@ -96,16 +114,17 @@ export const admin = () => {
             justifyContent: "space-around",
           }}
         >
-          <AdminCard title="Number of Users" data={userCount} />
-          <AdminCard title="Number of Orders" data={orderNumber} />
-          <AdminCard title="Orders Today" data={ordersToday} />
+          <AdminCard title="Number of Users" data={userCount} dark={darkMode} />
+          <AdminCard title="Number of Orders" data={orderNumber}  dark={darkMode} />
+          <AdminCard title="Orders Today" data={ordersToday}  dark={darkMode} />
           <AdminCard
             title="This month's 
 turnover "
             data={ordersToday}
+            dark={darkMode}
           />
         </div>
-        <div className="admin_chart">
+        <div className={`admin_chart ${ darkMode ? 'dark_light': ''}`}>
           <CChartLine
             type="line"
             customTooltips={false}

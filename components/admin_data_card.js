@@ -15,15 +15,19 @@ export const admin_data_card = (props) => {
         justifyContent: "space-around",
         alignItems: "center",
       }}
+      className={ `${props.dark ? "dark_light" : ""}`}
     >
+      <div style={{ display:'flex', width:'100%' }}>
       <span
         style={{
-          fontSize: "3rem",
+          fontSize: "2rem",
         }}
       >
         {props.title}
       </span>
+      </div>
       <Divider flexItem />
+      <div  style={{ display:'flex', width:'100%', justifyContent:'flex-end' }}>
       <span
         style={{
           fontSize: "3rem",
@@ -31,6 +35,7 @@ export const admin_data_card = (props) => {
       >
         {props.data}
       </span>
+      </div>
     </div>
   );
 };

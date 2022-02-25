@@ -7,12 +7,15 @@ import Alert from "@mui/material/Alert";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import  DarkModeToggle from '../components/darkModeToggle'
+import { globalActions } from "../store";
+import { useDispatch } from "react-redux";
 
 const adminLogin = () => {
   let [loginfailed, setLoginfailed] = useState(false);
   let router = useRouter();
   let [userName, setUserName] = useState("");
   let [passWord, setPassWord] = useState("");
+  let dispatch= useDispatch()
   let darkMode= useSelector((state)=> state.globalReducer.darkMode)
   async function login() {
     let response = await fetch("http://localhost:920/adminLogin", {
@@ -30,6 +33,7 @@ const adminLogin = () => {
     if (response.status == 200) {
       localStorage.setItem("ADMIN_TOKEN", JSON.stringify(data.token));
       router.push("/dashboard");
+      dispatch(globalActions.adminLogIn())
     } else if (response.status == 300) {
       setLoginfailed(true);
     }

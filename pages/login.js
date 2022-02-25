@@ -57,8 +57,8 @@ const login = () => {
     console.log(response.status);
     if (response.status == 200) {
       localStorage.setItem("TOKEN", JSON.stringify(data.token));
-      dispatch(globalActions.logIn())
       router.push("/customiser");
+      dispatch(globalActions.logIn())
     } else if (response.status == 300) {
       setLoginfailed(true);
     }

@@ -12,6 +12,8 @@ const orders = () => {
   let [selected, setSelected] = useState([]);
   let dispatch= useDispatch()
   let Router = useRouter();
+  let darkMode = useSelector((state) => state.globalReducer.darkMode);
+  let gridStyle= darkMode ? { color: 'white'} : ''
   let getOrders = async () => {
     try {
       let response = await fetch("http://localhost:920/getOrders", {
@@ -70,6 +72,9 @@ const orders = () => {
 
   return (
     <>
+    <div style={{ height: "100vw", width: "100vw", zIndex: "-5", position:'absolute', top:0 }}
+        className={`${darkMode ? "dark_dark" : ""}`}>
+
       <Adminheader />
       <div
         style={{
@@ -104,10 +109,12 @@ const orders = () => {
             pageSize={10}
             rowsPerPageOptions={[10]}
             checkboxSelection
+            sx={ gridStyle}
           />
         )}
       </div>
       <DeleteCard items={selected} type="orders"/>
+    </div>
     </>
   );
 };

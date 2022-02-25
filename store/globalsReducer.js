@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const globalsInitialState={
     isLoggedin:false,
-    darkMode:false
+    darkMode:false,
+    isAdminLoggedIn:false
 }
 
 const globalsState= createSlice({
@@ -18,6 +19,12 @@ const globalsState= createSlice({
         },
         darkModeToggle(state,action){
             state.darkMode=action.payload
+        },
+        adminLogIn(state){
+            state.isAdminLoggedIn= true
+        },
+        adminlogOut(state){
+            state.isAdminLoggedIn= false
         }
         
     }

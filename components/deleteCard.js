@@ -2,17 +2,20 @@
 
 const DeleteCard= (props)=>{
     console.log(props.type, props.items)
+    console.log(props.items.join('/'))
+   let IdList= props.items.join('/')
     const deleteRequest=async()=>{
         let token= JSON.parse(localStorage.getItem("ADMIN_TOKEN"))
         let response= await fetch("http://localhost:920/deleteItems",{
             method:'DELETE',
             headers:{
                 Authtoken:token,
-                type:props.type
-            },
-            body:JSON.stringify({
-                IDs: props.items
-            })
+                type:props.type,
+                IDs: IdList
+            }
+            // body:JSON.stringify({
+            //     IDs: props.items
+            // })
         })
         console.log(response.status, response.text)
     }

@@ -3,13 +3,16 @@ import DarkModeToggle from "./darkModeToggle";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { globalActions } from "../store";
 
 const Adminheader = () => {
   let darkMode = useSelector((state) => state.globalReducer.darkMode);
   let accentColor = darkMode ? "#383f45" : "#cbd2d9";
   let router = useRouter();
+  let dispatch= useDispatch()
   return (
-    <div className="admin_header">
+    <div className={`admin_header ${darkMode? "dark_light": ""}`}>
       <div
         style={{
           width: "30%",
@@ -75,6 +78,7 @@ const Adminheader = () => {
           onClick={() => {
             localStorage.removeItem("ADMIN_TOKEN");
             router.push("/adminLogin");
+            dispatch(globalActions.adminlogOut())
           }}
         >
           Log Out
