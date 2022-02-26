@@ -22,11 +22,20 @@ const DeleteCard= (props)=>{
 
     return(
         <div style={{
-            width:'10rem',
-            height:"5rem"
-        }}>
+            width:'20rem',
+            height:"6rem",
+            display:'flex',
+            flexDirection:'column',
+            boxShadow:'rgba(0, 0, 0, 0.1) 0px 4px 12px',
+            justifyContent:'space-around',
+            alignItems:'center',
+            marginLeft:'1rem',
+            borderRadius:'0.375rem'
+        }}
+        className={`${props.dark? "dark_light":''}`}
+        >
         <p> Currently selected items : {props.items.length}</p>
-        <button onClick={deleteRequest}> Delete</button>
+        <button  onClick={deleteRequest} style={{ width:'95%', height:'2rem', backgroundColor:'#D32F2F', borderRadius:'0.375rem'}}> Delete</button>
         </div>
     )
 }

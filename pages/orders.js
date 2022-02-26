@@ -115,7 +115,7 @@ const Orders = () => {
           />
         )}
       </div>
-      <DeleteCard items={selected} type="orders"/>
+      <DeleteCard items={selected} type="orders" dark={darkMode}/>
     </div>
     </>
   );

@@ -20,76 +20,83 @@ export const admin = () => {
   console.log(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
 
   let userCountFetch = async (token) => {
-    let response = await fetch("http://localhost:950/userCount", {
-      method: "GET",
-      headers: {
-        Authtoken: token,
-      },
-    });
-    let data = await response.json();
-
-    setUserCount(data.userCount);
-  };
-
-  let orderNumberFetch = async (token) => {
-    let response = await fetch("http://localhost:950/getOrders", {
-      method: "GET",
-      headers: {
-        Authtoken: token,
-      },
-    });
-    let data = await response.json();
-    setOrderNumber(data.orders.length);
-  };
-
-  let todayOrdersFetch = async (token) => {
-    let response = await fetch(
-      `http://localhost:950/getOrders?day=${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()}`,
-      {
+    try{
+      let response = await fetch("http://localhost:950/userCount", {
         method: "GET",
         headers: {
           Authtoken: token,
         },
-      }
-    );
-    console.log(response);
-    if (response.status == 301) {
-      setOrdersToday(0);
-    } else {
+      });
       let data = await response.json();
-      setOrdersToday(data.orders.length);
+  
+      setUserCount(data.userCount);
+    }catch(e){
+      console.log(e)
+    }
+  };
+
+  let orderNumberFetch = async (token) => {
+    try{
+
+      let response = await fetch("http://localhost:950/getOrders", {
+        method: "GET",
+        headers: {
+          Authtoken: token,
+        },
+      });
+      let data = await response.json();
+      setOrderNumber(data.orders.length);
+    }catch(e){
+      console.log(e)
+    }
+  };
+
+  let todayOrdersFetch = async (token) => {
+    try{
+      let response = await fetch(
+        `http://localhost:950/getOrders?day=${date.getFullYear()}-${
+          date.getMonth() + 1
+        }-${date.getDate()}`,
+        {
+          method: "GET",
+          headers: {
+            Authtoken: token,
+          },
+        }
+      );
+      console.log(response);
+      if (response.status == 301) {
+        setOrdersToday(0);
+      } else {
+        let data = await response.json();
+        setOrdersToday(data.orders.length);
+      }
+    }catch(e){
+      console.log(e)
     }
   };
 
   let graphDataFetch = async (token, year) => {
-    let response = await fetch("http://localhost:950/getGraphData", {
-      method: "GET",
-      headers: {
-        Authtoken: token,
-        year: year,
-      },
-    });
-    let data = await response.json();
-    console.log(data);
-    if (response.status == 200) {
-      setGraphOrdersData(data.ordersByMonth);
-      setGraphUsersData(data.usersByMonth);
+    try{
+      let response = await fetch("http://localhost:950/getGraphData", {
+        method: "GET",
+        headers: {
+          Authtoken: token,
+          year: year,
+        },
+      });
+      let data = await response.json();
+      console.log(data);
+      if (response.status == 200) {
+        setGraphOrdersData(data.ordersByMonth);
+        setGraphUsersData(data.usersByMonth);
+      }
+    }catch(e){
+      console.log(e)
     }
   };
 
-  let usersGraphFetch= async(token,year)=>{
-    let response= await fetch('http://localhost:950/getUsersGraph', {
-      method: "GET",
-      headers: {
-        Authtoken: token,
-        year: year,
-      },
-    })
-    let data = await response.json();
-    console.log(data);
-  }
+  
 
 
   useEffect(() => {
@@ -99,7 +106,6 @@ export const admin = () => {
     userCountFetch(token);
     todayOrdersFetch(token);
     graphDataFetch(token, year);
-    usersGraphFetch(token, year)
 
   }, []);
 
