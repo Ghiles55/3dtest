@@ -70,7 +70,7 @@ const Header = (props) => {
     <div className={`header ${darkMode? "dark_light": ""}`}>
       <div className="logoContainer">
         <img src="/F_logo.jpg"/>
-        <span>Brand name</span>
+        <span style={{ marginLeft:'1rem'}}> Brand Name</span>
       </div>
       <div className="headerSteps">
        <motion.div className="headerStep"><Link href='/'>Home</Link></motion.div>
